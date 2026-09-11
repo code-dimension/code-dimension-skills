@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Skill } from './skill.model';
-import { SKILLS } from './skills.data';
+import { FAQS, SKILLS } from './skills.data';
 
 type CopyState = Readonly<{
   skillId: string;
@@ -26,6 +26,7 @@ export class App {
   private readonly document = inject(DOCUMENT);
 
   protected readonly skills = SKILLS;
+  protected readonly faqs = FAQS;
   protected readonly searchQuery = signal('');
   protected readonly selectedCategory = signal(ALL_FILTER_VALUE);
   protected readonly selectedCreator = signal(ALL_FILTER_VALUE);

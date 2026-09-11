@@ -1,11 +1,41 @@
 {
   "version": 1,
   "skills": {
+    "ai-seo": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/ai-seo/SKILL.md",
+      "computedHash": "2b2dc6fe6156b9338e1b181670b1c3e2b215d980327f3bbd5aff9d069decd56d"
+    },
     "angular-developer": {
       "source": "angular/angular",
       "sourceType": "github",
       "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
       "computedHash": "0850aa966b6a7da1151daa9d0ef2081bf397f052573a35c1643fb92b948f0f00"
+    },
+    "seo-aeo-keyword-research": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-aeo-keyword-research/SKILL.md",
+      "computedHash": "b76ab6097e089c11602d23be83b126138b5287a7fb3af7c35813842f6fcf634f"
+    },
+    "seo-aeo-meta-description-generator": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-aeo-meta-description-generator/SKILL.md",
+      "computedHash": "c8c9a054f208b01f0ccd0d941ecfe324e8f21d062161f26e3799a781a291cbe4"
+    },
+    "seo-aeo-schema-generator": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-aeo-schema-generator/SKILL.md",
+      "computedHash": "f74850e40641f54e3fb4408347691b0d757611d00d7b936ea45b733de90ac406"
+    },
+    "seo-audit": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "computedHash": "01f9f8a3feb3ea69c6c212d61189c610f96ef2cc363adc27fd314d78254bf6ae"
     }
   }
 }

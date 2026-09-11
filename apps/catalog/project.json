@@ -8,6 +8,10 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
+      "dependsOn": [
+        "generate-seo",
+        "^build"
+      ],
       "outputs": [
         "{options.outputPath}"
       ],
@@ -15,6 +19,7 @@
       "options": {
         "outputPath": "dist/apps/catalog",
         "browser": "apps/catalog/src/main.ts",
+        "index": "apps/catalog/src/index.generated.html",
         "tsConfig": "apps/catalog/tsconfig.app.json",
         "assets": [
           {
@@ -52,6 +57,26 @@
           "extractLicenses": false,
           "sourceMap": true
         }
+      }
+    },
+    "generate-seo": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/src/app/catalog.data.json",
+        "{projectRoot}/src/index.html",
+        "{projectRoot}/tools/generate-seo.mjs"
+      ],
+      "outputs": [
+        "{projectRoot}/src/index.generated.html",
+        "{projectRoot}/public/llms.txt",
+        "{projectRoot}/public/robots.txt",
+        "{projectRoot}/public/sitemap.xml",
+        "{projectRoot}/public/skills.md"
+      ],
+      "options": {
+        "command": "node tools/generate-seo.mjs",
+        "cwd": "apps/catalog"
       }
     },
     "serve": {

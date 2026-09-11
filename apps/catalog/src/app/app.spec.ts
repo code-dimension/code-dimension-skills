@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { SKILLS } from './skills.data';
+import { FAQS, SKILLS } from './skills.data';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -17,6 +17,27 @@ describe('App', () => {
     expect(cards).toHaveLength(SKILLS.length);
     expect(fixture.nativeElement.textContent).toContain('Angular Architecture');
     expect(fixture.nativeElement.textContent).toContain('daisyUI v5');
+  });
+
+  it('renders indexable educational and FAQ content', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+
+    const headings = [...fixture.nativeElement.querySelectorAll('h1, h2')].map(
+      (heading: HTMLElement) => heading.textContent?.replace(/\s+/g, ' ').trim()
+    );
+    const questions = fixture.nativeElement.querySelectorAll('details');
+
+    expect(headings).toContain('Trusted agent skills for better software.');
+    expect(headings).toContain('What are agent skills?');
+    expect(headings).toContain('How to install an agent skill');
+    expect(headings).toContain('Common questions about agent skills');
+    expect(questions).toHaveLength(FAQS.length);
+
+    for (const faq of FAQS) {
+      expect(fixture.nativeElement.textContent).toContain(faq.question);
+      expect(fixture.nativeElement.textContent).toContain(faq.answer);
+    }
   });
 
   it('searches skills by name', async () => {

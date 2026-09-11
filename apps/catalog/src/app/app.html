@@ -10,14 +10,14 @@
     >
       <div class="navbar-start">
         <a
-          class="group flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          class="group flex items-center gap-5"
           href="#top"
           aria-label="Code Dimension Skills home"
         >
-          <span
-            class="grid size-10 place-items-center rounded-xl bg-primary font-bold text-primary-content shadow-lg shadow-primary/20 transition-transform group-hover:-rotate-3"
+          <img
+            src="logo-cd-symbol.png"
+            class="size-10 rotate-25"
             aria-hidden="true"
-            >CD</span
           >
           <span class="hidden leading-tight sm:block">
             <span class="block font-bold text-white">Code Dimension</span>
@@ -67,20 +67,21 @@
         <p
           class="mb-5 text-xs font-bold tracking-[0.24em] text-primary uppercase"
         >
-          Recommended agent skills
+          Agent skills catalog
         </p>
         <h1
           id="hero-title"
           class="mx-auto max-w-4xl text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-display-lg"
         >
-          Build better with
-          <span class="text-angular-gradient">trusted skills.</span>
+          Trusted agent skills for
+          <div class="text-angular-gradient">better software.</div>
         </h1>
         <p
           class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg"
         >
-          Discover practical skills reviewed or created by Code Dimension, then
-          add them to your coding agent with a single command.
+          Discover {{ skills.length }} practical skills reviewed or created by
+          Code Dimension for AI coding agents. Understand each skill, choose
+          the right guidance, and install it with a ready-to-copy command.
         </p>
         <a
           class="btn btn-primary mt-8 shadow-lg shadow-primary/20 w-full max-w-56"
@@ -88,6 +89,53 @@
         >
           Explore
         </a>
+      </div>
+    </section>
+
+    <section
+      class="mx-auto mb-20 max-w-7xl px-4 sm:mb-24 sm:px-6 lg:px-8"
+      aria-labelledby="agent-skills-title"
+    >
+      <div class="glass-card grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.15fr_1fr] lg:p-10">
+        <div>
+          <p class="text-xs font-bold tracking-[0.2em] text-primary uppercase">
+            Reusable guidance
+          </p>
+          <h2
+            id="agent-skills-title"
+            class="mt-2 text-3xl font-bold text-white"
+          >
+            What are agent skills?
+          </h2>
+          <p class="mt-4 max-w-2xl leading-relaxed text-slate-400">
+            Agent skills are reusable instruction packages that give AI coding
+            agents focused guidance for a framework, workflow, or engineering
+            practice. This catalog helps developers find reviewed skills,
+            understand what each one covers, and install it with a
+            ready-to-copy command.
+          </p>
+        </div>
+
+        <dl class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+          <div class="rounded-xl border border-base-content/10 bg-base-100/60 p-4">
+            <dt class="font-bold text-white">Discover</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-slate-400">
+              Search by skill name, category, or creator.
+            </dd>
+          </div>
+          <div class="rounded-xl border border-base-content/10 bg-base-100/60 p-4">
+            <dt class="font-bold text-white">Evaluate</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-slate-400">
+              Read the scope and identify the guidance your project needs.
+            </dd>
+          </div>
+          <div class="rounded-xl border border-base-content/10 bg-base-100/60 p-4">
+            <dt class="font-bold text-white">Install</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-slate-400">
+              Copy a precise CLI command and run it in your workspace.
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -211,7 +259,7 @@
       @if (filteredSkills().length) {
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         @for (skill of filteredSkills(); track skill.id) {
-        <article class="card glass-card h-full">
+        <article [id]="'skill-' + skill.id" class="card glass-card h-full">
           <div class="card-body gap-5 p-6 sm:p-7">
             <div class="flex items-start justify-between gap-4">
               <div
@@ -348,6 +396,83 @@
       </div>
       }
     </section>
+
+    <section
+      class="border-base-content/5 border-y bg-base-200/30"
+      aria-labelledby="install-title"
+    >
+      <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-xs font-bold tracking-[0.2em] text-primary uppercase">
+            From catalog to workspace
+          </p>
+          <h2 id="install-title" class="mt-2 text-3xl font-bold text-white">
+            How to install an agent skill
+          </h2>
+          <p class="mt-4 leading-relaxed text-slate-400">
+            Add focused guidance to your coding agent in three transparent
+            steps. Inspect the source whenever you need more context before
+            installation.
+          </p>
+        </div>
+
+        <ol class="mt-10 grid gap-5 md:grid-cols-3">
+          <li class="glass-card p-6">
+            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary">1</span>
+            <h3 class="mt-5 text-lg font-bold text-white">Choose a skill</h3>
+            <p class="mt-2 leading-relaxed text-slate-400">
+              Compare descriptions, categories, and creators to find guidance
+              that matches your task.
+            </p>
+          </li>
+          <li class="glass-card p-6">
+            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary">2</span>
+            <h3 class="mt-5 text-lg font-bold text-white">Copy the command</h3>
+            <p class="mt-2 leading-relaxed text-slate-400">
+              Use the copy button on the skill card to capture the exact
+              <code class="font-mono text-sm text-white">npx skills add</code>
+              command.
+            </p>
+          </li>
+          <li class="glass-card p-6">
+            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary">3</span>
+            <h3 class="mt-5 text-lg font-bold text-white">Review and use it</h3>
+            <p class="mt-2 leading-relaxed text-slate-400">
+              Run the command from your project, then review the installed
+              instructions before applying them with your coding agent.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section
+      id="faq"
+      class="mx-auto max-w-4xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8"
+      aria-labelledby="faq-title"
+    >
+      <div class="text-center">
+        <p class="text-xs font-bold tracking-[0.2em] text-primary uppercase">
+          Agent skills FAQ
+        </p>
+        <h2 id="faq-title" class="mt-2 text-3xl font-bold text-white">
+          Common questions about agent skills
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-4">
+        @for (faq of faqs; track faq.question) {
+        <details class="group glass-card p-6">
+          <summary class="cursor-pointer font-bold text-white">
+            {{ faq.question }}
+          </summary>
+          <p class="mt-4 leading-relaxed text-slate-400">
+            {{ faq.answer }}
+          </p>
+        </details>
+        }
+      </div>
+    </section>
   </main>
 
   <footer class="border-base-content/5 border-t">
@@ -355,7 +480,17 @@
       class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
     >
       <p>Curated with care by Code Dimension.</p>
-      <p>Practical skills for better software.</p>
+      <nav class="flex flex-wrap gap-x-4 gap-y-2" aria-label="Catalog resources">
+        <a class="link-hover link" href="/skills.md">Skills in Markdown</a>
+        <a class="link-hover link" href="/llms.txt">llms.txt</a>
+        <a
+          class="link-hover link"
+          href="https://github.com/code-dimension/code-dimension-skills"
+          target="_blank"
+          rel="noreferrer"
+          >Source on GitHub</a
+        >
+      </nav>
     </div>
   </footer>
 </div>

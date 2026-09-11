@@ -1,0 +1,59 @@
+{
+  "site": {
+    "name": "Code Dimension Agent Skills",
+    "organizationName": "Code Dimension",
+    "url": "https://agent-skills.codedimension.com.br/",
+    "sourceRepository": "https://github.com/code-dimension/code-dimension-skills",
+    "title": "Agent Skills Catalog for AI Coding Agents | Code Dimension",
+    "language": "en",
+    "locale": "en_US",
+    "themeColor": "#1d232a"
+  },
+  "faqs": [
+    {
+      "question": "What is an agent skill?",
+      "answer": "An agent skill is a reusable instruction package that gives an AI coding agent focused guidance for a framework, workflow, or engineering practice."
+    },
+    {
+      "question": "How do I install an agent skill?",
+      "answer": "Choose a skill, copy its npx skills add command, run it from your project directory, and review the installed SKILL.md before using the guidance in your coding agent."
+    },
+    {
+      "question": "How does Code Dimension select skills for the catalog?",
+      "answer": "Code Dimension lists skills it has reviewed or created for practical software-development work. Every catalog entry identifies its creator and explains its scope before installation."
+    },
+    {
+      "question": "Can AI agents read this catalog without running JavaScript?",
+      "answer": "Yes. The catalog is prerendered as static HTML and also publishes llms.txt and skills.md files so search crawlers and AI agents can discover and parse its public content."
+    }
+  ],
+  "skills": [
+    {
+      "id": "angular-arch",
+      "name": "Angular Architecture",
+      "installCommand": "npx skills add code-dimension/code-dimension-skills --skill angular-arch",
+      "category": "Architecture",
+      "description": "Opinionated guidance for organizing Angular applications into clear core, feature, and shared boundaries.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization"
+    },
+    {
+      "id": "daisy-ui-v5",
+      "name": "daisyUI v5",
+      "installCommand": "npx skills add code-dimension/code-dimension-skills --skill daisy-ui-v5",
+      "category": "UI & Styling",
+      "description": "Practical conventions for accessible daisyUI 5 components, semantic themes, and responsive layouts.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization"
+    },
+    {
+      "id": "angular-developer",
+      "name": "Angular Developer",
+      "installCommand": "npx skills add angular/angular --skill angular-developer",
+      "category": "Development",
+      "description": "Current Angular guidance for components, signals, forms, routing, testing, accessibility, and tooling.",
+      "creator": "Angular",
+      "creatorType": "Organization"
+    }
+  ]
+}
