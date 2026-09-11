@@ -29,7 +29,7 @@
         "ssr": {
           "entry": "apps/catalog/src/server.ts"
         },
-        "outputMode": "server"
+        "outputMode": "static"
       },
       "configurations": {
         "production": {
