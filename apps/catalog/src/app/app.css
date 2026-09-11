@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.hero-shader {
+  background:
+    radial-gradient(
+      ellipse 48% 95% at 0% 45%,
+      color-mix(in oklab, var(--color-primary) 30%, transparent) 0%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 42% 80% at 28% 8%,
+      color-mix(in oklab, var(--color-accent) 12%, transparent) 0%,
+      transparent 68%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-primary) 9%, var(--color-base-100)) 0%,
+      color-mix(in oklab, var(--color-primary) 3%, var(--color-base-100)) 52%,
+      var(--color-base-100) 100%
+    );
+}
+
+.hero-shader::after {
+  position: absolute;
+  inset: -55% -15%;
+  background: conic-gradient(
+    from 205deg at 28% 52%,
+    transparent 0deg,
+    color-mix(in oklab, var(--color-primary) 18%, transparent) 42deg,
+    transparent 104deg,
+    color-mix(in oklab, var(--color-accent) 10%, transparent) 158deg,
+    transparent 225deg
+  );
+  content: '';
+  filter: blur(72px);
+  mask-image: linear-gradient(90deg, #000 0%, rgb(0 0 0 / 65%) 42%, transparent 78%);
+  opacity: 0.7;
+  transform: rotate(-5deg);
+}
+
+article {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+article:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--color-primary) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  article,
+  article:hover {
+    transform: none;
+    transition: none;
+  }
+}

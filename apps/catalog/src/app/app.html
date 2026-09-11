@@ -1,0 +1,361 @@
+<div
+  class="relative isolate flex min-h-screen flex-col overflow-hidden bg-base-100"
+>
+  <header
+    class="border-base-content/5 border-b bg-base-100/80 backdrop-blur-xl"
+  >
+    <nav
+      class="navbar mx-auto min-h-20 max-w-7xl px-4 sm:px-6 lg:px-8"
+      aria-label="Primary navigation"
+    >
+      <div class="navbar-start">
+        <a
+          class="group flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          href="#top"
+          aria-label="Code Dimension Skills home"
+        >
+          <span
+            class="grid size-10 place-items-center rounded-xl bg-primary font-bold text-primary-content shadow-lg shadow-primary/20 transition-transform group-hover:-rotate-3"
+            aria-hidden="true"
+            >CD</span
+          >
+          <span class="hidden leading-tight sm:block">
+            <span class="block font-bold text-white">Code Dimension</span>
+            <span class="block text-xs text-slate-400">Skills catalog</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="navbar-end">
+        <a
+          class="btn btn-ghost btn-sm border-base-content/10 sm:btn-md"
+          href="https://github.com/code-dimension/code-dimension-skills"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <svg
+            class="size-4"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 .7a11.3 11.3 0 0 0-3.57 22c.57.1.78-.24.78-.54v-2.2c-3.18.69-3.85-1.35-3.85-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.09 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.54-.29-5.21-1.27-5.21-5.59 0-1.23.44-2.24 1.17-3.03-.12-.29-.51-1.45.11-2.99 0 0 .95-.3 3.11 1.16A10.8 10.8 0 0 1 12 6.01c.96 0 1.92.13 2.83.38 2.16-1.46 3.11-1.16 3.11-1.16.62 1.54.23 2.7.11 2.99.73.79 1.17 1.8 1.17 3.03 0 4.33-2.68 5.29-5.23 5.57.41.35.78 1.05.78 2.12v3.22c0 .3.21.65.79.54A11.3 11.3 0 0 0 12 .7Z"
+            />
+          </svg>
+          <span class="hidden sm:inline">View on GitHub</span>
+          <span class="sm:hidden">GitHub</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1">
+    <section
+      id="top"
+      class="relative isolate mb-16 overflow-hidden sm:mb-24"
+      aria-labelledby="hero-title"
+    >
+      <div
+        class="hero-shader pointer-events-none absolute inset-0 -z-10"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="mx-auto max-w-7xl px-4 pt-20 pb-16 text-center sm:px-6 sm:pt-28 sm:pb-20 lg:px-8"
+      >
+        <p
+          class="mb-5 text-xs font-bold tracking-[0.24em] text-primary uppercase"
+        >
+          Recommended agent skills
+        </p>
+        <h1
+          id="hero-title"
+          class="mx-auto max-w-4xl text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-display-lg"
+        >
+          Build better with
+          <span class="text-angular-gradient">trusted skills.</span>
+        </h1>
+        <p
+          class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg"
+        >
+          Discover practical skills reviewed or created by Code Dimension, then
+          add them to your coding agent with a single command.
+        </p>
+        <a
+          class="btn btn-primary mt-8 shadow-lg shadow-primary/20 w-full max-w-56"
+          href="#skills"
+        >
+          Explore
+        </a>
+      </div>
+    </section>
+
+    <section
+      id="skills"
+      class="mx-auto max-w-7xl scroll-mt-6 px-4 pb-24 sm:px-6 lg:px-8"
+      aria-labelledby="catalog-title"
+    >
+      <div class="mb-8">
+        <p class="text-xs font-bold tracking-[0.2em] text-primary uppercase">
+          Browse the catalog
+        </p>
+        <h2 id="catalog-title" class="mt-2 text-3xl font-bold text-white">
+          Find your next skill
+        </h2>
+      </div>
+
+      <div class="glass-card mb-8 p-4 sm:p-6">
+        <div class="grid gap-4 md:grid-cols-3">
+          <fieldset class="fieldset p-0">
+            <legend
+              id="skill-search-label"
+              class="fieldset-legend text-sm text-white"
+            >
+              Search by name
+            </legend>
+            <label
+              class="input input-bordered w-full bg-base-100/60 focus-within:outline-primary"
+            >
+              <svg
+                class="size-4 text-slate-400"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path stroke-linecap="round" d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                id="skill-search"
+                type="search"
+                aria-labelledby="skill-search-label"
+                placeholder="e.g. Angular"
+                autocomplete="off"
+                [value]="searchQuery()"
+                (input)="updateSearch($event)"
+              />
+            </label>
+          </fieldset>
+
+          <fieldset class="fieldset p-0">
+            <legend
+              id="category-filter-label"
+              class="fieldset-legend text-sm text-white"
+            >
+              Category
+            </legend>
+            <select
+              id="category-filter"
+              aria-labelledby="category-filter-label"
+              class="select select-bordered w-full bg-base-100/60 focus:outline-primary"
+              [value]="selectedCategory()"
+              (change)="updateCategory($event)"
+            >
+              <option value="all">All categories</option>
+              @for (category of categories; track category) {
+              <option [value]="category">{{ category }}</option>
+              }
+            </select>
+          </fieldset>
+
+          <fieldset class="fieldset p-0">
+            <legend
+              id="creator-filter-label"
+              class="fieldset-legend text-sm text-white"
+            >
+              Creator
+            </legend>
+            <select
+              id="creator-filter"
+              aria-labelledby="creator-filter-label"
+              class="select select-bordered w-full bg-base-100/60 focus:outline-primary"
+              [value]="selectedCreator()"
+              (change)="updateCreator($event)"
+            >
+              <option value="all">All creators</option>
+              @for (creator of creators; track creator) {
+              <option [value]="creator">{{ creator }}</option>
+              }
+            </select>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="mb-5 flex items-center justify-between gap-4">
+        <p class="text-sm text-slate-400" role="status" aria-live="polite">
+          Showing
+          <strong class="font-bold text-white"
+            >{{ filteredSkills().length }}</strong
+          >
+          of {{ skills.length }} skills
+        </p>
+        @if ( searchQuery() || selectedCategory() !== 'all' || selectedCreator()
+        !== 'all' ) {
+        <button
+          class="btn btn-ghost btn-sm"
+          type="button"
+          (click)="clearFilters()"
+        >
+          Clear filters
+        </button>
+        }
+      </div>
+
+      <p class="sr-only" role="status" aria-live="polite">
+        {{ copyAnnouncement() }}
+      </p>
+
+      @if (filteredSkills().length) {
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        @for (skill of filteredSkills(); track skill.id) {
+        <article class="card glass-card h-full">
+          <div class="card-body gap-5 p-6 sm:p-7">
+            <div class="flex items-start justify-between gap-4">
+              <div
+                class="grid size-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary"
+                aria-hidden="true"
+              >
+                <svg
+                  class="size-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m12 3-1.9 4.4L5.5 9.3l4.6 1.9L12 16l1.9-4.8 4.6-1.9-4.6-1.9L12 3Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m5.5 15-.8 2.1-2.2.9 2.2.9.8 2.1.9-2.1 2.1-.9-2.1-.9-.9-2.1ZM18.5 14l-.7 1.7-1.8.8 1.8.7.7 1.8.8-1.8 1.7-.7-1.7-.8-.8-1.7Z"
+                  />
+                </svg>
+              </div>
+              <span class="badge badge-soft badge-primary"
+                >{{ skill.category }}</span
+              >
+            </div>
+
+            <div class="grow">
+              <h3 class="card-title text-xl text-white">{{ skill.name }}</h3>
+              <p class="mt-3 leading-relaxed text-slate-400">
+                {{ skill.description }}
+              </p>
+            </div>
+
+            <dl class="flex items-center gap-2 text-sm">
+              <dt class="text-slate-400">Created by</dt>
+              <dd class="font-bold text-white">{{ skill.creator }}</dd>
+            </dl>
+
+            <div
+              class="rounded-xl border border-base-content/10 bg-base-100/70 p-3"
+            >
+              <code
+                class="block break-all font-mono text-xs leading-relaxed text-slate-400"
+              >
+                {{ skill.installCommand }}
+              </code>
+            </div>
+
+            <div class="card-actions">
+              <button
+                class="btn btn-block"
+                type="button"
+                [class.btn-primary]="copyState()?.skillId !== skill.id"
+                [class.btn-success]="
+                      copyState()?.skillId === skill.id && copyState()?.status === 'success'
+                    "
+                [class.btn-error]="
+                      copyState()?.skillId === skill.id && copyState()?.status === 'error'
+                    "
+                [attr.aria-label]="'Copy installation command for ' + skill.name"
+                (click)="copyCommand(skill)"
+              >
+                @if ( copyState()?.skillId === skill.id && copyState()?.status
+                === 'success' ) {
+                <svg
+                  class="size-4"
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m5 12 4 4L19 6"
+                  />
+                </svg>
+                Copied } @else if ( copyState()?.skillId === skill.id &&
+                copyState()?.status === 'error' ) { Copy unavailable } @else {
+                <svg
+                  class="size-4"
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="9" y="9" width="11" height="11" rx="2" />
+                  <path
+                    stroke-linecap="round"
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  />
+                </svg>
+                Copy command }
+              </button>
+            </div>
+          </div>
+        </article>
+        }
+      </div>
+      } @else {
+      <div class="glass-card py-16 text-center" role="status">
+        <div
+          class="mx-auto grid size-14 place-items-center rounded-2xl bg-primary/10 text-primary"
+          aria-hidden="true"
+        >
+          <svg
+            class="size-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path stroke-linecap="round" d="m21 21-4.3-4.3M8.5 11h5" />
+          </svg>
+        </div>
+        <h3 class="mt-5 text-xl font-bold text-white">No skills found</h3>
+        <p class="mt-2 text-slate-400">
+          Try another name, category, or creator.
+        </p>
+        <button
+          class="btn btn-primary btn-sm mt-6"
+          type="button"
+          (click)="clearFilters()"
+        >
+          Clear filters
+        </button>
+      </div>
+      }
+    </section>
+  </main>
+
+  <footer class="border-base-content/5 border-t">
+    <div
+      class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
+    >
+      <p>Curated with care by Code Dimension.</p>
+      <p>Practical skills for better software.</p>
+    </div>
+  </footer>
+</div>
