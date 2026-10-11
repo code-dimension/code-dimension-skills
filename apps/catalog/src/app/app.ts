@@ -1,13 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
-import { Skill } from './skill.model';
-import { FAQS, SKILLS } from './skills.data';
-
-type CopyState = Readonly<{
-  skillId: string;
-  skillName: string;
-  status: 'success' | 'error';
-}>;
+import { Component, computed, signal } from '@angular/core';
+import { FAQS, CATALOG_ITEMS } from './catalog.data';
 
 const ALL_FILTER_VALUE = 'all';
 
@@ -23,45 +15,39 @@ function uniqueSorted(values: readonly string[]): readonly string[] {
   styleUrl: './app.css',
 })
 export class App {
-  private readonly document = inject(DOCUMENT);
-
-  protected readonly skills = SKILLS;
+  protected readonly items = CATALOG_ITEMS;
   protected readonly faqs = FAQS;
   protected readonly searchQuery = signal('');
   protected readonly selectedCategory = signal(ALL_FILTER_VALUE);
   protected readonly selectedCreator = signal(ALL_FILTER_VALUE);
-  protected readonly copyState = signal<CopyState | null>(null);
+  protected readonly selectedType = signal(ALL_FILTER_VALUE);
 
   protected readonly categories = uniqueSorted(
-    this.skills.map((skill) => skill.category)
+    this.items.flatMap((item) => item.categories)
+  );
+  protected readonly types = uniqueSorted(
+    this.items.flatMap((item) => item.types)
   );
   protected readonly creators = uniqueSorted(
-    this.skills.map((skill) => skill.creator)
+    this.items.map((item) => item.creator)
   );
 
-  protected readonly filteredSkills = computed(() => {
+  protected readonly filteredItems = computed(() => {
     const query = this.searchQuery().trim().toLocaleLowerCase('en');
     const category = this.selectedCategory();
     const creator = this.selectedCreator();
+    const type = this.selectedType();
 
-    return this.skills.filter(
-      (skill) =>
-        (!query || skill.name.toLocaleLowerCase('en').includes(query)) &&
-        (category === ALL_FILTER_VALUE || skill.category === category) &&
-        (creator === ALL_FILTER_VALUE || skill.creator === creator)
+    return this.items.filter(
+      (item) =>
+        (!query ||
+          [item.name, item.description, item.creator, ...item.categories].some(
+            (value) => value.toLocaleLowerCase('en').includes(query)
+          )) &&
+        (category === ALL_FILTER_VALUE || item.categories.includes(category)) &&
+        (type === ALL_FILTER_VALUE || item.types.includes(type)) &&
+        (creator === ALL_FILTER_VALUE || item.creator === creator)
     );
-  });
-
-  protected readonly copyAnnouncement = computed(() => {
-    const state = this.copyState();
-
-    if (!state) {
-      return '';
-    }
-
-    return state.status === 'success'
-      ? `${state.skillName} installation command copied to clipboard.`
-      : `Could not copy the ${state.skillName} installation command.`;
   });
 
   protected updateSearch(event: Event): void {
@@ -72,6 +58,10 @@ export class App {
     this.selectedCategory.set((event.target as HTMLSelectElement).value);
   }
 
+  protected updateType(event: Event): void {
+    this.selectedType.set((event.target as HTMLSelectElement).value);
+  }
+
   protected updateCreator(event: Event): void {
     this.selectedCreator.set((event.target as HTMLSelectElement).value);
   }
@@ -80,33 +70,6 @@ export class App {
     this.searchQuery.set('');
     this.selectedCategory.set(ALL_FILTER_VALUE);
     this.selectedCreator.set(ALL_FILTER_VALUE);
-  }
-
-  protected async copyCommand(skill: Skill): Promise<void> {
-    const clipboard = this.document.defaultView?.navigator.clipboard;
-
-    if (!clipboard) {
-      this.copyState.set({
-        skillId: skill.id,
-        skillName: skill.name,
-        status: 'error',
-      });
-      return;
-    }
-
-    try {
-      await clipboard.writeText(skill.installCommand);
-      this.copyState.set({
-        skillId: skill.id,
-        skillName: skill.name,
-        status: 'success',
-      });
-    } catch {
-      this.copyState.set({
-        skillId: skill.id,
-        skillName: skill.name,
-        status: 'error',
-      });
-    }
+    this.selectedType.set(ALL_FILTER_VALUE);
   }
 }

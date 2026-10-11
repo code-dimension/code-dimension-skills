@@ -1,126 +1,214 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { FAQS, SKILLS } from './skills.data';
+import { CATALOG_ITEMS, FAQS } from './catalog.data';
 
 describe('App', () => {
+  let fixture: ComponentFixture<App>;
+  let root: HTMLElement;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
     }).compileComponents();
+    fixture = TestBed.createComponent(App);
+    root = fixture.nativeElement;
+    await fixture.whenStable();
   });
 
-  it('renders every skill from the catalog data', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-
-    const cards = fixture.nativeElement.querySelectorAll('article');
-    expect(cards).toHaveLength(SKILLS.length);
-    expect(fixture.nativeElement.textContent).toContain('Angular Architecture');
-    expect(fixture.nativeElement.textContent).toContain('daisyUI v5');
-  });
-
-  it('renders indexable educational and FAQ content', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-
-    const headings = [...fixture.nativeElement.querySelectorAll('h1, h2')].map(
-      (heading: HTMLElement) => heading.textContent?.replace(/\s+/g, ' ').trim()
+  async function setControl(id: string, value: string) {
+    const control = root.querySelector<HTMLInputElement | HTMLSelectElement>(
+      `#${id}`
+    )!;
+    control.value = value;
+    control.dispatchEvent(
+      new Event(id === 'skill-search' ? 'input' : 'change')
     );
-    const questions = fixture.nativeElement.querySelectorAll('details');
+    await fixture.whenStable();
+  }
 
-    expect(headings).toContain('Trusted agent skills for better software.');
-    expect(headings).toContain('What are agent skills?');
-    expect(headings).toContain('How to install an agent skill');
-    expect(headings).toContain('Common questions about agent skills');
-    expect(questions).toHaveLength(FAQS.length);
+  function cardIds() {
+    return [...root.querySelectorAll('article')].map((card) =>
+      card.id.replace('skill-', '')
+    );
+  }
 
+  it('renders 23 unique recommendations in editorial order', () => {
+    expect(CATALOG_ITEMS).toHaveLength(23);
+    expect(cardIds()).toEqual(CATALOG_ITEMS.map((item) => item.id));
+    expect(new Set(cardIds()).size).toBe(23);
+    expect(root.textContent?.replace(/\s+/g, ' ')).toContain('of 23 tools');
+  });
+
+  it('renders source links, accessible new-tab notices, creators and every badge', () => {
+    for (const item of CATALOG_ITEMS) {
+      const card = root.querySelector(`#skill-${item.id}`)!;
+      const link = card.querySelector<HTMLAnchorElement>('a')!;
+      expect(link.href).toBe(item.url);
+      expect(link.target).toBe('_blank');
+      expect(link.rel).toContain('noopener');
+      expect(link.getAttribute('aria-label')).toBe(
+        `Visit tool: ${item.name} (opens in a new tab)`
+      );
+      expect(link.tabIndex).toBe(0);
+      expect(card.querySelector('dd')?.textContent).toBe(item.creator);
+      for (const badge of [...item.categories, ...item.types]) {
+        expect(card.textContent).toContain(badge);
+      }
+    }
+    expect(root.querySelector('code')).toBeNull();
+    expect(root.textContent).not.toMatch(/Copy command|npx skills add/);
+  });
+
+  it('keeps native, labeled keyboard controls and existing anchors', () => {
+    for (const id of [
+      'skill-search',
+      'category-filter',
+      'type-filter',
+      'creator-filter',
+    ]) {
+      const control = root.querySelector<HTMLElement>(`#${id}`)!;
+      expect(control.tabIndex).toBe(0);
+      expect(
+        root
+          .querySelector(`#${control.getAttribute('aria-labelledby')}`)
+          ?.textContent?.trim()
+      ).toBeTruthy();
+    }
+    for (const id of [
+      'top',
+      'skills',
+      'faq',
+      'agent-skills-title',
+      'install-title',
+    ]) {
+      expect(root.querySelector(`#${id}`)).not.toBeNull();
+    }
+    expect(root.querySelector('a[href="/skills.md"]')).not.toBeNull();
+  });
+
+  it('renders educational content and the canonical FAQs', () => {
+    expect(root.textContent).toContain('Skills, CLIs, and MCP tools');
+    expect(root.textContent).toContain('How to get started');
+    expect(root.querySelectorAll('details')).toHaveLength(FAQS.length);
     for (const faq of FAQS) {
-      expect(fixture.nativeElement.textContent).toContain(faq.question);
-      expect(fixture.nativeElement.textContent).toContain(faq.answer);
+      expect(root.textContent).toContain(faq.question);
+      expect(root.textContent).toContain(faq.answer);
     }
   });
 
-  it('searches skills by name', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
+  it.each([
+    ['  aNgUlAr  ', ['angular-developer']],
+    ['reusable project documentation', ['save-research']],
+    ['Spec-Driven Development', ['save-research', 'openspec']],
+    [
+      'Code Dimension',
+      [
+        'save-research',
+        'pragmatic-git-context',
+        'subagent-delegation',
+        'hotmart-api',
+        'cloudflare-stream',
+      ],
+    ],
+  ])(
+    'searches names, descriptions, categories and creators: %s',
+    async (query, expected) => {
+      await setControl('skill-search', query);
+      expect(cardIds()).toEqual(expected);
+    }
+  );
 
-    const search = fixture.nativeElement.querySelector(
-      '#skill-search'
-    ) as HTMLInputElement;
-    search.value = 'daisy';
-    search.dispatchEvent(new Event('input'));
-    await fixture.whenStable();
-
-    const cards = fixture.nativeElement.querySelectorAll('article');
-    expect(cards).toHaveLength(1);
-    expect(cards[0].textContent).toContain('daisyUI v5');
+  it.each([
+    [
+      'category-filter',
+      'Design & UI',
+      [
+        'daisyui',
+        'tailwind-patterns',
+        'frontend-design',
+        'design-md',
+        'stitch-mcp',
+      ],
+    ],
+    [
+      'category-filter',
+      'Token Optimization',
+      ['subagent-delegation', 'rtk', 'headroom', 'context7'],
+    ],
+    [
+      'type-filter',
+      'MCP',
+      ['headroom', 'context7', 'stitch-mcp', 'chrome-devtools-mcp'],
+    ],
+    ['type-filter', 'CLI', ['rtk', 'headroom', 'context7', 'openspec']],
+    [
+      'creator-filter',
+      'Code Dimension',
+      [
+        'save-research',
+        'pragmatic-git-context',
+        'subagent-delegation',
+        'hotmart-api',
+        'cloudflare-stream',
+      ],
+    ],
+  ])('filters %s by %s without duplicates', async (id, value, expected) => {
+    await setControl(id, value);
+    expect(cardIds()).toEqual(expected);
+    expect(
+      root.querySelector('[role="status"] strong')?.textContent?.trim()
+    ).toBe(String(expected.length));
   });
 
-  it('combines category and creator filters', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-
-    const category = fixture.nativeElement.querySelector(
-      '#category-filter'
-    ) as HTMLSelectElement;
-    const creator = fixture.nativeElement.querySelector(
-      '#creator-filter'
-    ) as HTMLSelectElement;
-
-    category.value = 'Development';
-    category.dispatchEvent(new Event('change'));
-    creator.value = 'Angular';
-    creator.dispatchEvent(new Event('change'));
-    await fixture.whenStable();
-
-    const cards = fixture.nativeElement.querySelectorAll('article');
-    expect(cards).toHaveLength(1);
-    expect(cards[0].textContent).toContain('Angular Developer');
+  it('finds the new MCPs by objective and creator', async () => {
+    await setControl('type-filter', 'MCP');
+    await setControl('category-filter', 'Design & UI');
+    await setControl('creator-filter', 'Google Labs');
+    expect(cardIds()).toEqual(['stitch-mcp']);
+    await setControl('category-filter', 'Code Quality & Review');
+    await setControl('creator-filter', 'Google');
+    expect(cardIds()).toEqual(['chrome-devtools-mcp']);
   });
 
-  it('shows an empty state and clears active filters', async () => {
-    const fixture = TestBed.createComponent(App);
+  it('includes multi-type tools in the Skill filter', async () => {
+    await setControl('type-filter', 'Skill');
+    expect(cardIds()).toHaveLength(19);
+    expect(cardIds()).toContain('context7');
+    expect(cardIds()).toContain('openspec');
+    expect(cardIds()).not.toContain('headroom');
+  });
+
+  it('intersects search and all three filters', async () => {
+    await setControl('category-filter', 'Research & Documentation');
+    await setControl('type-filter', 'MCP');
+    await setControl('creator-filter', 'Upstash');
+    await setControl('skill-search', 'documentation');
+    expect(cardIds()).toEqual(['context7']);
+    await setControl('creator-filter', 'Code Dimension');
+    expect(cardIds()).toEqual([]);
+    expect(root.textContent).toContain('No tools found');
+  });
+
+  it('clears search and every filter from an empty result', async () => {
+    await setControl('category-filter', 'Backend & APIs');
+    await setControl('type-filter', 'CLI');
+    await setControl('creator-filter', 'Code Dimension');
+    await setControl('skill-search', 'missing tool');
+    expect(cardIds()).toEqual([]);
+    expect(
+      root.querySelector('[role="status"] strong')?.textContent?.trim()
+    ).toBe('0');
+    const clear = [...root.querySelectorAll('button')].find((button) =>
+      button.textContent?.includes('Clear filters')
+    )!;
+    clear.click();
     await fixture.whenStable();
-
-    const search = fixture.nativeElement.querySelector(
-      '#skill-search'
-    ) as HTMLInputElement;
-    search.value = 'missing skill';
-    search.dispatchEvent(new Event('input'));
-    await fixture.whenStable();
-
-    expect(fixture.nativeElement.textContent).toContain('No skills found');
-
-    const clearButton = [...fixture.nativeElement.querySelectorAll('button')].find(
-      (button: HTMLButtonElement) => button.textContent?.includes('Clear filters')
-    ) as HTMLButtonElement;
-    clearButton.click();
-    await fixture.whenStable();
-
-    expect(fixture.nativeElement.querySelectorAll('article')).toHaveLength(
-      SKILLS.length
+    expect(cardIds()).toEqual(CATALOG_ITEMS.map((item) => item.id));
+    expect(root.querySelector<HTMLInputElement>('#skill-search')!.value).toBe(
+      ''
     );
-    expect(search.value).toBe('');
-  });
-
-  it('copies an installation command to the clipboard', async () => {
-    const writeText = vi.fn<(text: string) => Promise<void>>().mockResolvedValue(undefined);
-    Object.defineProperty(window.navigator, 'clipboard', {
-      configurable: true,
-      value: { writeText },
-    });
-
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-
-    const copyButton = fixture.nativeElement.querySelector(
-      'button[aria-label="Copy installation command for Angular Architecture"]'
-    ) as HTMLButtonElement;
-    copyButton.click();
-    await Promise.resolve();
-    await fixture.whenStable();
-
-    expect(writeText).toHaveBeenCalledWith(SKILLS[0].installCommand);
-    expect(copyButton.textContent).toContain('Copied');
+    for (const select of root.querySelectorAll('select'))
+      expect(select.value).toBe('all');
+    expect(root.querySelector('button')).toBeNull();
   });
 });

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Subagent Delegation"
+  short_description: "Reutiliza subagentes por linhas de contexto"
+  default_prompt: "Use $subagent-delegation para organizar este trabalho multifásico em linhas de contexto com checkpoints e reutilização segura de subagentes."
+
+policy:
+  allow_implicit_invocation: false

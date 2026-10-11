@@ -1,3 +1,4 @@
+import { validateCatalog } from './validate-catalog.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,11 +19,12 @@ const indexTemplate = await readFile(indexTemplatePath, 'utf8');
 
 validateCatalog(catalog);
 
-const { site, faqs, skills } = catalog;
-const categories = uniqueSorted(skills.map((skill) => skill.category));
-const creators = uniqueSorted(skills.map((skill) => skill.creator));
-const metaDescription = `Browse ${skills.length} reviewed agent skills for AI coding agents. Compare practical guidance, creators, categories, and installation commands. Explore the catalog.`;
-const socialDescription = `Explore ${skills.length} practical, reviewed agent skills for AI coding agents. Compare use cases and copy installation commands in seconds.`;
+const { site, faqs, items } = catalog;
+const categories = uniqueSorted(items.flatMap((item) => item.categories));
+const types = uniqueSorted(items.flatMap((item) => item.types));
+const creators = uniqueSorted(items.map((item) => item.creator));
+const metaDescription = `Discover ${items.length} recommended agent tools: skills, CLIs, and MCP. Compare objectives, types, and creators. Visit each source to get started.`;
+const socialDescription = `Explore ${items.length} agent tools across ${categories.length} objectives. Find skills, CLIs, and MCP tools from ${creators.length} creators.`;
 
 if (metaDescription.length > 160) {
   throw new Error(
@@ -36,7 +38,7 @@ const organizationSchema = {
   '@id': `${site.url}#organization`,
   name: site.organizationName,
   url: site.url,
-  description: `${site.organizationName} reviews and creates practical skills for AI coding agents.`,
+  description: `${site.organizationName} reviews and creates practical tools for AI coding agents.`,
   sameAs: [site.sourceRepository],
 };
 
@@ -55,21 +57,23 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   '@id': `${site.url}#skill-list`,
-  name: 'Recommended agent skills',
-  description: `Reviewed agent skills across ${formatList(categories)}.`,
-  numberOfItems: skills.length,
-  itemListElement: skills.map((skill, index) => ({
+  name: 'Recommended agent tools',
+  description: `Recommended agent tools across ${formatList(categories)}.`,
+  numberOfItems: items.length,
+  itemListElement: items.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    url: `${site.url}#skill-${skill.id}`,
+    url: `${site.url}#skill-${item.id}`,
     item: {
       '@type': 'CreativeWork',
-      name: skill.name,
-      description: skill.description,
-      genre: skill.category,
+      name: item.name,
+      description: item.description,
+      url: item.url,
+      genre: item.categories,
+      learningResourceType: item.types,
       creator: {
-        '@type': skill.creatorType,
-        name: skill.creator,
+        '@type': item.creatorType,
+        name: item.creator,
       },
     },
   })),
@@ -101,19 +105,19 @@ const generatedHead = [
   `    <link rel="canonical" href="${escapeHtml(site.url)}" />`,
   `    <link rel="alternate" type="text/markdown" href="${escapeHtml(
     new URL('skills.md', site.url).href
-  )}" title="Agent skills catalog in Markdown" />`,
+  )}" title="Agent tools catalog in Markdown" />`,
   '',
   '    <meta property="og:type" content="website" />',
   `    <meta property="og:locale" content="${escapeHtml(site.locale)}" />`,
   `    <meta property="og:site_name" content="${escapeHtml(site.name)}" />`,
-  '    <meta property="og:title" content="Trusted Agent Skills for AI Coding Agents" />',
+  '    <meta property="og:title" content="Trusted Agent Tools for AI Coding Agents" />',
   `    <meta property="og:description" content="${escapeHtml(
     socialDescription
   )}" />`,
   `    <meta property="og:url" content="${escapeHtml(site.url)}" />`,
   '',
   '    <meta name="twitter:card" content="summary" />',
-  '    <meta name="twitter:title" content="Trusted Agent Skills for AI Coding Agents" />',
+  '    <meta name="twitter:title" content="Trusted Agent Tools for AI Coding Agents" />',
   `    <meta name="twitter:description" content="${escapeHtml(
     socialDescription
   )}" />`,
@@ -134,94 +138,17 @@ await Promise.all([
   writeFile(path.join(publicPath, 'sitemap.xml'), generateSitemap(site.url)),
   writeFile(
     path.join(publicPath, 'llms.txt'),
-    generateLlms(site, skills, categories, creators)
+    generateLlms(site, items, categories, creators, types)
   ),
   writeFile(
     path.join(publicPath, 'skills.md'),
-    generateSkillsMarkdown(site, skills)
+    generateSkillsMarkdown(site, items)
   ),
 ]);
 
 console.log(
-  `Generated SEO/AEO artifacts for ${skills.length} skills and ${faqs.length} FAQs.`
+  `Generated SEO/AEO artifacts for ${items.length} tools and ${faqs.length} FAQs.`
 );
-
-function validateCatalog(value) {
-  if (!value?.site || !Array.isArray(value.skills) || !Array.isArray(value.faqs)) {
-    throw new Error('catalog.data.json must define site, skills, and faqs.');
-  }
-
-  new URL(value.site.url);
-  new URL(value.site.sourceRepository);
-
-  for (const field of [
-    'name',
-    'organizationName',
-    'title',
-    'language',
-    'locale',
-    'themeColor',
-  ]) {
-    if (typeof value.site[field] !== 'string' || value.site[field].trim() === '') {
-      throw new Error(`Site configuration has an invalid ${field}.`);
-    }
-  }
-
-  if (!value.site.url.endsWith('/')) {
-    throw new Error('site.url must end with a slash.');
-  }
-
-  if (value.skills.length === 0) {
-    throw new Error('The catalog must contain at least one skill.');
-  }
-
-  const ids = new Set();
-  for (const skill of value.skills) {
-    for (const field of [
-      'id',
-      'name',
-      'installCommand',
-      'category',
-      'description',
-      'creator',
-      'creatorType',
-    ]) {
-      if (typeof skill[field] !== 'string' || skill[field].trim() === '') {
-        throw new Error(
-          `Skill ${skill.id ?? '<unknown>'} has an invalid ${field}.`
-        );
-      }
-    }
-
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(skill.id)) {
-      throw new Error(`Skill id "${skill.id}" must be lowercase kebab-case.`);
-    }
-
-    if (ids.has(skill.id)) {
-      throw new Error(`Duplicate skill id "${skill.id}".`);
-    }
-
-    if (!skill.installCommand.startsWith('npx skills add ')) {
-      throw new Error(
-        `Skill "${skill.id}" must use an npx skills add command.`
-      );
-    }
-
-    if (!['Organization', 'Person'].includes(skill.creatorType)) {
-      throw new Error(
-        `Skill "${skill.id}" creatorType must be Organization or Person.`
-      );
-    }
-
-    ids.add(skill.id);
-  }
-
-  for (const faq of value.faqs) {
-    if (!faq?.question?.trim() || !faq?.answer?.trim()) {
-      throw new Error('Every FAQ must have a non-empty question and answer.');
-    }
-  }
-}
 
 function uniqueSorted(values) {
   return [...new Set(values)].sort((first, second) =>
@@ -266,10 +193,9 @@ function indent(value, spaces) {
 }
 
 function generateRobots(siteUrl) {
-  return `User-agent: *\nAllow: /\n\nSitemap: ${new URL(
-    'sitemap.xml',
-    siteUrl
-  ).href}\n`;
+  return `User-agent: *\nAllow: /\n\nSitemap: ${
+    new URL('sitemap.xml', siteUrl).href
+  }\n`;
 }
 
 function generateSitemap(siteUrl) {
@@ -278,22 +204,25 @@ function generateSitemap(siteUrl) {
   )}</loc>\n  </url>\n</urlset>\n`;
 }
 
-function generateLlms(siteConfig, skillEntries, skillCategories, skillCreators) {
-  return `# ${siteConfig.name}\n\n> ${siteConfig.organizationName}'s public catalog of reviewed and original skills for AI coding agents.\n\nThe catalog currently contains ${skillEntries.length} skills across ${skillCategories.length} categories from ${skillCreators.length} creators. Each entry identifies its creator, explains its scope, and provides an installation command.\n\n## Key resources\n\n- [Agent Skills Catalog](${siteConfig.url}): Browse and filter every recommended skill.\n- [Machine-readable Skills Catalog](${new URL(
-    'skills.md',
-    siteConfig.url
-  ).href}): Read skill descriptions and installation commands in Markdown.\n- [Source Repository](${siteConfig.sourceRepository}): Inspect the catalog and skill source files on GitHub.\n\n## Catalog categories\n\n${skillCategories
-    .map((category) => `- ${category}`)
-    .join('\n')}\n\n## Usage\n\nChoose a skill, copy its \`npx skills add\` command, run it from the project directory, and review the installed \`SKILL.md\` before applying its guidance.\n`;
+function generateLlms(
+  siteConfig,
+  itemEntries,
+  itemCategories,
+  itemCreators,
+  itemTypes
+) {
+  return `# ${siteConfig.name}\n\n> ${siteConfig.organizationName}'s public catalog of recommended tools for AI coding agents.\n\nThe catalog contains ${itemEntries.length} tools across ${itemCategories.length} objectives from ${itemCreators.length} creators. Types: ${itemTypes.join(', ')}.\n\n## Key resources\n\n- [Agent Tools Catalog](${siteConfig.url}): Browse and filter every recommendation.\n- [Catalog in Markdown](${new URL('skills.md', siteConfig.url).href}): Read descriptions, types, categories, creators, and source links.\n- [Source Repository](${siteConfig.sourceRepository}): Inspect the catalog and local skills.\n\n## Catalog categories\n\n${itemCategories.map((category) => `- ${category}`).join('\n')}\n\n${catalogEntriesMarkdown(itemEntries)}\n\n## Usage\n\nChoose a tool by objective and visit its source for documentation and setup. Review instructions and permissions before use.\n`;
 }
 
-function generateSkillsMarkdown(siteConfig, skillEntries) {
-  const entries = skillEntries
+function catalogEntriesMarkdown(itemEntries) {
+  return itemEntries
     .map(
-      (skill) =>
-        `## ${skill.name}\n\n- Creator: ${skill.creator}\n- Category: ${skill.category}\n- Purpose: ${skill.description}\n- Install: \`${skill.installCommand}\``
+      (item) =>
+        `## ${item.name}\n\n- Creator: ${item.creator}\n- Types: ${item.types.join(', ')}\n- Categories: ${item.categories.join(', ')}\n- Purpose: ${item.description}\n- Visit tool: <${item.url}>`
     )
     .join('\n\n');
+}
 
-  return `# Agent Skills Catalog\n\n${siteConfig.organizationName} maintains this catalog to help developers discover practical, reviewed skills for AI coding agents. A skill is a reusable instruction package focused on a framework, workflow, or engineering practice.\n\nCatalog entries: ${skillEntries.length}\n\nCanonical catalog: <${siteConfig.url}>\n\n${entries}\n\n## How to use a skill\n\n1. Choose a skill that matches your task.\n2. Run its installation command from your project directory.\n3. Review the installed \`SKILL.md\` before applying the guidance with your coding agent.\n\n## Source and updates\n\nInspect the public source repository for the latest catalog and skill files: <${siteConfig.sourceRepository}>\n`;
+function generateSkillsMarkdown(siteConfig, itemEntries) {
+  return `# Agent Tools Catalog\n\n${siteConfig.organizationName} recommends skills, CLIs, and MCP tools for AI coding agents. Skills provide reusable instructions, CLIs run terminal tasks, and MCP connects agents to tools and context.\n\nCatalog entries: ${itemEntries.length}\n\nCanonical catalog: <${siteConfig.url}>\n\n${catalogEntriesMarkdown(itemEntries)}\n\n## How to get started\n\n1. Choose a tool that matches your task.\n2. Visit its source for documentation and setup instructions.\n3. Review instructions and permissions before using it with your coding agent.\n\n## Source and updates\n\nInspect the public source repository for the latest catalog and skill files: <${siteConfig.sourceRepository}>\n`;
 }

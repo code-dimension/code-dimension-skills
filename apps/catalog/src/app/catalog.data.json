@@ -1,59 +1,282 @@
 {
   "site": {
-    "name": "Code Dimension Agent Skills",
+    "name": "Code Dimension Agent Tools",
     "organizationName": "Code Dimension",
     "url": "https://agent-skills.codedimension.com.br/",
     "sourceRepository": "https://github.com/code-dimension/code-dimension-skills",
-    "title": "Agent Skills Catalog for AI Coding Agents | Code Dimension",
+    "title": "Agent Tools Catalog: Skills, CLIs & MCP | Code Dimension",
     "language": "en",
     "locale": "en_US",
     "themeColor": "#1d232a"
   },
   "faqs": [
     {
-      "question": "What is an agent skill?",
-      "answer": "An agent skill is a reusable instruction package that gives an AI coding agent focused guidance for a framework, workflow, or engineering practice."
+      "question": "What is the difference between a skill, a CLI, and MCP?",
+      "answer": "A skill provides reusable instructions for an AI agent. A CLI runs tasks in your terminal. MCP connects an agent to tools and context through a shared protocol. Some tools support more than one of these formats."
     },
     {
-      "question": "How do I install an agent skill?",
-      "answer": "Choose a skill, copy its npx skills add command, run it from your project directory, and review the installed SKILL.md before using the guidance in your coding agent."
+      "question": "How do I find a tool for my objective?",
+      "answer": "Search by name, description, category, or creator, then combine Category, Type, and Creator filters. A tool can support multiple objectives and types, but appears only once in the catalog."
     },
     {
-      "question": "How does Code Dimension select skills for the catalog?",
-      "answer": "Code Dimension lists skills it has reviewed or created for practical software-development work. Every catalog entry identifies its creator and explains its scope before installation."
+      "question": "How do I install or use a recommended tool?",
+      "answer": "Select Visit tool to open its source in a new tab. Follow the source documentation for installation, compatibility, and permissions. Setup differs between skills, CLIs, and MCP tools."
+    },
+    {
+      "question": "Who creates the tools in this catalog?",
+      "answer": "Code Dimension curates this catalog and authors the skills maintained in its repository. Third-party tools retain their own creators, shown on each card and in the Creator filter."
     },
     {
       "question": "Can AI agents read this catalog without running JavaScript?",
-      "answer": "Yes. The catalog is prerendered as static HTML and also publishes llms.txt and skills.md files so search crawlers and AI agents can discover and parse its public content."
+      "answer": "Yes. The catalog is prerendered as static HTML and publishes llms.txt and skills.md with the same tools, categories, types, creators, and source links."
     }
   ],
-  "skills": [
-    {
-      "id": "angular-arch",
-      "name": "Angular Architecture",
-      "installCommand": "npx skills add code-dimension/code-dimension-skills --skill angular-arch",
-      "category": "Architecture",
-      "description": "Opinionated guidance for organizing Angular applications into clear core, feature, and shared boundaries.",
-      "creator": "Code Dimension",
-      "creatorType": "Organization"
-    },
-    {
-      "id": "daisy-ui-v5",
-      "name": "daisyUI v5",
-      "installCommand": "npx skills add code-dimension/code-dimension-skills --skill daisy-ui-v5",
-      "category": "UI & Styling",
-      "description": "Practical conventions for accessible daisyUI 5 components, semantic themes, and responsive layouts.",
-      "creator": "Code Dimension",
-      "creatorType": "Organization"
-    },
+  "items": [
     {
       "id": "angular-developer",
       "name": "Angular Developer",
-      "installCommand": "npx skills add angular/angular --skill angular-developer",
-      "category": "Development",
       "description": "Current Angular guidance for components, signals, forms, routing, testing, accessibility, and tooling.",
       "creator": "Angular",
-      "creatorType": "Organization"
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Architecture & Development"],
+      "url": "https://skills.sh/angular/angular/angular-developer"
+    },
+    {
+      "id": "save-research",
+      "name": "Save Research",
+      "description": "Preserve research findings, sources, and decisions in reusable project documentation.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": [
+        "Context Engineering",
+        "Research & Documentation",
+        "Spec-Driven Development"
+      ],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/save-research"
+    },
+    {
+      "id": "pragmatic-git-context",
+      "name": "Pragmatic Git Context",
+      "description": "Use Git history and focused diffs to understand changes, review decisions, and recover project context.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": [
+        "Code Quality & Review",
+        "Context Engineering",
+        "Research & Documentation"
+      ],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/pragmatic-git-context"
+    },
+    {
+      "id": "subagent-delegation",
+      "name": "Subagent Delegation",
+      "description": "Delegate independent tasks with focused context, clear ownership, and coordinated verification.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Context Engineering", "Token Optimization"],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/subagent-delegation"
+    },
+    {
+      "id": "hotmart-api",
+      "name": "Hotmart API",
+      "description": "Guidance for Hotmart integrations, API research, authentication, webhooks, and reliable data flows.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Backend & APIs"],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/hotmart-api"
+    },
+    {
+      "id": "cloudflare-stream",
+      "name": "Cloudflare Stream",
+      "description": "Build Cloudflare Stream upload, playback, and video-management integrations using current API documentation.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Backend & APIs"],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/cloudflare-stream"
+    },
+    {
+      "id": "daisyui",
+      "name": "daisyUI official",
+      "description": "Official guidance for building interfaces with daisyUI components, themes, and semantic colors.",
+      "creator": "daisyUI",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Design & UI"],
+      "url": "https://skills.sh/saadeghi/daisyui/daisyui"
+    },
+    {
+      "id": "tailwind-patterns",
+      "name": "Tailwind Patterns",
+      "description": "Tailwind CSS patterns for responsive layouts, design tokens, and reusable interface styling.",
+      "creator": "sickn33",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": ["Design & UI"],
+      "url": "https://skills.sh/sickn33/agentic-awesome-skills/tailwind-patterns"
+    },
+    {
+      "id": "frontend-design",
+      "name": "Frontend Design",
+      "description": "Create distinctive frontend interfaces with deliberate typography, layout, color, and visual detail.",
+      "creator": "Anthropic",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Design & UI"],
+      "url": "https://skills.sh/anthropics/skills/frontend-design"
+    },
+    {
+      "id": "design-md",
+      "name": "Design MD",
+      "description": "Analyze a visual design and document its colors, typography, components, and layout in DESIGN.md.",
+      "creator": "Google Labs",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Design & UI", "Research & Documentation"],
+      "url": "https://skills.sh/google-labs-code/stitch-skills/design-md"
+    },
+    {
+      "id": "nestjs-best-practices",
+      "name": "NestJS Best Practices",
+      "description": "NestJS guidance for application architecture, dependency injection, security, testing, and performance.",
+      "creator": "Kadajett",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": [
+        "Architecture & Development",
+        "Code Quality & Review",
+        "Backend & APIs"
+      ],
+      "url": "https://skills.sh/kadajett/agent-nestjs-skills/nestjs-best-practices"
+    },
+    {
+      "id": "ponytail",
+      "name": "Ponytail",
+      "description": "Guide coding agents toward small, complete changes with practical review and verification.",
+      "creator": "Dietrich Gebert",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": ["Code Quality & Review"],
+      "url": "https://skills.sh/dietrichgebert/ponytail/ponytail"
+    },
+    {
+      "id": "zod",
+      "name": "Zod",
+      "description": "Zod schema guidance for runtime validation, type inference, parsing errors, and schema tests.",
+      "creator": "Anivar Aravind",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": ["Code Quality & Review", "Backend & APIs"],
+      "url": "https://skills.sh/anivar/zod-skill/zod"
+    },
+    {
+      "id": "rtk",
+      "name": "RTK",
+      "description": "Compress common terminal command output to reduce the context and tokens consumed by coding agents.",
+      "creator": "RTK",
+      "creatorType": "Organization",
+      "types": ["CLI"],
+      "categories": ["Context Engineering", "Token Optimization"],
+      "url": "https://github.com/rtk-ai/rtk"
+    },
+    {
+      "id": "headroom",
+      "name": "Headroom",
+      "description": "Compress tool outputs, logs, and retrieved context before they reach an AI agent.",
+      "creator": "Headroom Labs",
+      "creatorType": "Organization",
+      "types": ["MCP", "CLI"],
+      "categories": ["Context Engineering", "Token Optimization"],
+      "url": "https://github.com/headroomlabs-ai/headroom"
+    },
+    {
+      "id": "context7",
+      "name": "Context7",
+      "description": "Retrieve current library documentation and code examples to ground agent work in relevant sources.",
+      "creator": "Upstash",
+      "creatorType": "Organization",
+      "types": ["MCP", "CLI", "Skill"],
+      "categories": [
+        "Context Engineering",
+        "Token Optimization",
+        "Research & Documentation"
+      ],
+      "url": "https://skills.sh/upstash/context7"
+    },
+    {
+      "id": "markdown-mermaid-writing",
+      "name": "Markdown Mermaid Writing",
+      "description": "Write structured technical documentation with Markdown and Mermaid diagrams.",
+      "creator": "Kalaris Labs",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Research & Documentation"],
+      "url": "https://skills.sh/kalarislabs/research-agent-skills/markdown-mermaid-writing"
+    },
+    {
+      "id": "openspec",
+      "name": "OpenSpec",
+      "description": "Define proposed changes, requirements, and implementation tasks in a spec-driven development workflow.",
+      "creator": "Fission AI",
+      "creatorType": "Organization",
+      "types": ["CLI", "Skill"],
+      "categories": ["Spec-Driven Development"],
+      "url": "https://skills.sh/fission-ai/openspec"
+    },
+    {
+      "id": "copywriting",
+      "name": "Copywriting",
+      "description": "Write and revise marketing copy with clear positioning, audience focus, and useful calls to action.",
+      "creator": "Corey Haines",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": ["Content & Copywriting"],
+      "url": "https://skills.sh/coreyhaines31/marketingskills/copywriting"
+    },
+    {
+      "id": "humanizer",
+      "name": "Humanizer",
+      "description": "Edit prose to remove formulaic AI writing patterns while preserving meaning and the writer's voice.",
+      "creator": "Siqi Chen",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": ["Content & Copywriting"],
+      "url": "https://skills.sh/blader/humanizer/humanizer"
+    },
+    {
+      "id": "docker-expert",
+      "name": "Docker Expert",
+      "description": "Practical Docker guidance for multi-stage builds, image optimization, security, and container workflows.",
+      "creator": "davila7",
+      "creatorType": "Person",
+      "types": ["Skill"],
+      "categories": ["DevOps & Infrastructure"],
+      "url": "https://skills.sh/davila7/claude-code-templates/docker-expert"
+    },
+    {
+      "id": "stitch-mcp",
+      "name": "Stitch MCP",
+      "description": "Connect coding agents to Stitch to generate UI designs and work with design projects and screens.",
+      "creator": "Google Labs",
+      "creatorType": "Organization",
+      "types": ["MCP"],
+      "categories": ["Design & UI"],
+      "url": "https://stitch.withgoogle.com/docs/mcp/setup"
+    },
+    {
+      "id": "chrome-devtools-mcp",
+      "name": "Chrome DevTools MCP",
+      "description": "Let coding agents inspect live web pages, debug browser issues, and verify user flows, accessibility, and performance with Chrome DevTools.",
+      "creator": "Google",
+      "creatorType": "Organization",
+      "types": ["MCP"],
+      "categories": ["Architecture & Development", "Code Quality & Review"],
+      "url": "https://developer.chrome.com/docs/devtools/agents"
     }
   ]
 }

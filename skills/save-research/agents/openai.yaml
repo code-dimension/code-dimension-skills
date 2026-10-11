@@ -1,0 +1,4 @@
+interface:
+  display_name: "Save Research"
+  short_description: "Salva pesquisas de conversas em docs/researchs"
+  default_prompt: "Use $save-research para registrar esta pesquisa em docs/researchs com contexto, decisoes, evidencias e proximos passos para specs."

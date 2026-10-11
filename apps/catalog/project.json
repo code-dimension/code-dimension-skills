@@ -8,13 +8,8 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "dependsOn": [
-        "generate-seo",
-        "^build"
-      ],
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "dependsOn": ["generate-seo", "^build"],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/catalog",
@@ -27,9 +22,7 @@
             "input": "apps/catalog/public"
           }
         ],
-        "styles": [
-          "apps/catalog/src/styles.css"
-        ],
+        "styles": ["apps/catalog/src/styles.css"],
         "server": "apps/catalog/src/main.server.ts",
         "ssr": {
           "entry": "apps/catalog/src/server.ts"
@@ -65,7 +58,8 @@
       "inputs": [
         "{projectRoot}/src/app/catalog.data.json",
         "{projectRoot}/src/index.html",
-        "{projectRoot}/tools/generate-seo.mjs"
+        "{projectRoot}/tools/generate-seo.mjs",
+        "{projectRoot}/tools/validate-catalog.mjs"
       ],
       "outputs": [
         "{projectRoot}/src/index.generated.html",
@@ -96,7 +90,8 @@
       "executor": "@angular/build:unit-test",
       "options": {
         "watch": false
-      }
+      },
+      "dependsOn": ["test-data"]
     },
     "serve-static": {
       "continuous": true,
@@ -105,6 +100,18 @@
         "buildTarget": "catalog:build",
         "staticFilePath": "dist/apps/catalog/browser",
         "spa": true
+      }
+    },
+    "test-data": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/tools/validate-catalog*.mjs",
+        "{projectRoot}/src/app/catalog.data.json"
+      ],
+      "options": {
+        "command": "node --test tools/validate-catalog.test.mjs",
+        "cwd": "apps/catalog"
       }
     }
   }

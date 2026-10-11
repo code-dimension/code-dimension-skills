@@ -12,16 +12,16 @@
         <a
           class="group flex items-center gap-5"
           href="#top"
-          aria-label="Code Dimension Skills home"
+          aria-label="Code Dimension catalog home"
         >
           <img
             src="logo-cd-symbol.png"
             class="size-10 rotate-25"
             aria-hidden="true"
-          >
+          />
           <span class="hidden leading-tight sm:block">
             <span class="block font-bold text-white">Code Dimension</span>
-            <span class="block text-xs text-slate-400">Skills catalog</span>
+            <span class="block text-xs text-slate-400">Tools catalog</span>
           </span>
         </a>
       </div>
@@ -67,21 +67,21 @@
         <p
           class="mb-5 text-xs font-bold tracking-[0.24em] text-primary uppercase"
         >
-          Agent skills catalog
+          Agent tools catalog
         </p>
         <h1
           id="hero-title"
           class="mx-auto max-w-4xl text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-display-lg"
         >
-          Trusted agent skills for
+          Trusted agent tools for
           <div class="text-angular-gradient">better software.</div>
         </h1>
         <p
           class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg"
         >
-          Discover {{ skills.length }} practical skills reviewed or created by
-          Code Dimension for AI coding agents. Understand each skill, choose
-          the right guidance, and install it with a ready-to-copy command.
+          Discover {{ items.length }} tools recommended by Code Dimension for AI
+          coding agents. Find skills, CLIs, and MCP tools by your objective and
+          visit their sources to get started.
         </p>
         <a
           class="btn btn-primary mt-8 shadow-lg shadow-primary/20 w-full max-w-56"
@@ -96,43 +96,50 @@
       class="mx-auto mb-20 max-w-7xl px-4 sm:mb-24 sm:px-6 lg:px-8"
       aria-labelledby="agent-skills-title"
     >
-      <div class="glass-card grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.15fr_1fr] lg:p-10">
+      <div
+        class="glass-card grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.15fr_1fr] lg:p-10"
+      >
         <div>
           <p class="text-xs font-bold tracking-[0.2em] text-primary uppercase">
-            Reusable guidance
+            Guidance and tools
           </p>
           <h2
             id="agent-skills-title"
             class="mt-2 text-3xl font-bold text-white"
           >
-            What are agent skills?
+            Skills, CLIs, and MCP tools
           </h2>
           <p class="mt-4 max-w-2xl leading-relaxed text-slate-400">
             Agent skills are reusable instruction packages that give AI coding
             agents focused guidance for a framework, workflow, or engineering
-            practice. This catalog helps developers find reviewed skills,
-            understand what each one covers, and install it with a
-            ready-to-copy command.
+            practice. CLIs run tasks in your terminal, while MCP connects agents
+            to tools and context. Find the combination that supports your work.
           </p>
         </div>
 
         <dl class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-          <div class="rounded-xl border border-base-content/10 bg-base-100/60 p-4">
+          <div
+            class="rounded-xl border border-base-content/10 bg-base-100/60 p-4"
+          >
             <dt class="font-bold text-white">Discover</dt>
             <dd class="mt-1 text-sm leading-relaxed text-slate-400">
-              Search by skill name, category, or creator.
+              Search by name, description, category, or creator.
             </dd>
           </div>
-          <div class="rounded-xl border border-base-content/10 bg-base-100/60 p-4">
+          <div
+            class="rounded-xl border border-base-content/10 bg-base-100/60 p-4"
+          >
             <dt class="font-bold text-white">Evaluate</dt>
             <dd class="mt-1 text-sm leading-relaxed text-slate-400">
               Read the scope and identify the guidance your project needs.
             </dd>
           </div>
-          <div class="rounded-xl border border-base-content/10 bg-base-100/60 p-4">
-            <dt class="font-bold text-white">Install</dt>
+          <div
+            class="rounded-xl border border-base-content/10 bg-base-100/60 p-4"
+          >
+            <dt class="font-bold text-white">Get started</dt>
             <dd class="mt-1 text-sm leading-relaxed text-slate-400">
-              Copy a precise CLI command and run it in your workspace.
+              Visit the source for setup instructions and requirements.
             </dd>
           </div>
         </dl>
@@ -149,18 +156,18 @@
           Browse the catalog
         </p>
         <h2 id="catalog-title" class="mt-2 text-3xl font-bold text-white">
-          Find your next skill
+          Find the tool for your goal
         </h2>
       </div>
 
       <div class="glass-card mb-8 p-4 sm:p-6">
-        <div class="grid gap-4 md:grid-cols-3">
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <fieldset class="fieldset p-0">
             <legend
               id="skill-search-label"
               class="fieldset-legend text-sm text-white"
             >
-              Search by name
+              Search tools
             </legend>
             <label
               class="input input-bordered w-full bg-base-100/60 focus-within:outline-primary"
@@ -198,13 +205,34 @@
             <select
               id="category-filter"
               aria-labelledby="category-filter-label"
-              class="select select-bordered w-full bg-base-100/60 focus:outline-primary"
+              class="select select-bordered w-full  focus:outline-primary"
               [value]="selectedCategory()"
               (change)="updateCategory($event)"
             >
               <option value="all">All categories</option>
               @for (category of categories; track category) {
               <option [value]="category">{{ category }}</option>
+              }
+            </select>
+          </fieldset>
+
+          <fieldset class="fieldset p-0">
+            <legend
+              id="type-filter-label"
+              class="fieldset-legend text-sm text-white"
+            >
+              Type
+            </legend>
+            <select
+              id="type-filter"
+              aria-labelledby="type-filter-label"
+              class="select select-bordered w-full  focus:outline-primary"
+              [value]="selectedType()"
+              (change)="updateType($event)"
+            >
+              <option value="all">All types</option>
+              @for (type of types; track type) {
+              <option [value]="type">{{ type }}</option>
               }
             </select>
           </fieldset>
@@ -219,7 +247,7 @@
             <select
               id="creator-filter"
               aria-labelledby="creator-filter-label"
-              class="select select-bordered w-full bg-base-100/60 focus:outline-primary"
+              class="select select-bordered w-full  focus:outline-primary"
               [value]="selectedCreator()"
               (change)="updateCreator($event)"
             >
@@ -236,12 +264,12 @@
         <p class="text-sm text-slate-400" role="status" aria-live="polite">
           Showing
           <strong class="font-bold text-white"
-            >{{ filteredSkills().length }}</strong
+            >{{ filteredItems().length }}</strong
           >
-          of {{ skills.length }} skills
+          of {{ items.length }} tools
         </p>
-        @if ( searchQuery() || selectedCategory() !== 'all' || selectedCreator()
-        !== 'all' ) {
+        @if ( selectedType() !== 'all' || searchQuery() || selectedCategory()
+        !== 'all' || selectedCreator() !== 'all' ) {
         <button
           class="btn btn-ghost btn-sm"
           type="button"
@@ -252,14 +280,10 @@
         }
       </div>
 
-      <p class="sr-only" role="status" aria-live="polite">
-        {{ copyAnnouncement() }}
-      </p>
-
-      @if (filteredSkills().length) {
+      @if (filteredItems().length) {
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        @for (skill of filteredSkills(); track skill.id) {
-        <article [id]="'skill-' + skill.id" class="card glass-card h-full">
+        @for (item of filteredItems(); track item.id) {
+        <article [id]="'skill-' + item.id" class="card glass-card h-full">
           <div class="card-body gap-5 p-6 sm:p-7">
             <div class="flex items-start justify-between gap-4">
               <div
@@ -285,81 +309,43 @@
                   />
                 </svg>
               </div>
-              <span class="badge badge-soft badge-primary"
-                >{{ skill.category }}</span
-              >
+              <div class="flex flex-wrap justify-end gap-2">
+                @for (type of item.types; track type) {
+                <span class="badge badge-soft badge-primary">{{ type }}</span>
+                }
+              </div>
             </div>
 
             <div class="grow">
-              <h3 class="card-title text-xl text-white">{{ skill.name }}</h3>
+              <h3 class="card-title text-xl text-white">{{ item.name }}</h3>
               <p class="mt-3 leading-relaxed text-slate-400">
-                {{ skill.description }}
+                {{ item.description }}
               </p>
             </div>
 
-            <dl class="flex items-center gap-2 text-sm">
-              <dt class="text-slate-400">Created by</dt>
-              <dd class="font-bold text-white">{{ skill.creator }}</dd>
-            </dl>
-
-            <div
-              class="rounded-xl border border-base-content/10 bg-base-100/70 p-3"
-            >
-              <code
-                class="block break-all font-mono text-xs leading-relaxed text-slate-400"
+            <div class="flex flex-wrap gap-2">
+              @for (category of item.categories; track category) {
+              <span class="badge badge-outline h-auto py-1 text-xs"
+                >{{ category }}</span
               >
-                {{ skill.installCommand }}
-              </code>
+              }
             </div>
 
+            <dl class="flex flex-wrap items-center gap-2 text-sm">
+              <dt class="text-slate-400">Created by</dt>
+              <dd class="font-bold text-white">{{ item.creator }}</dd>
+            </dl>
+
             <div class="card-actions">
-              <button
-                class="btn btn-block"
-                type="button"
-                [class.btn-primary]="copyState()?.skillId !== skill.id"
-                [class.btn-success]="
-                      copyState()?.skillId === skill.id && copyState()?.status === 'success'
-                    "
-                [class.btn-error]="
-                      copyState()?.skillId === skill.id && copyState()?.status === 'error'
-                    "
-                [attr.aria-label]="'Copy installation command for ' + skill.name"
-                (click)="copyCommand(skill)"
+              <a
+                class="btn btn-primary btn-block"
+                [href]="item.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="'Visit tool: ' + item.name + ' (opens in a new tab)'"
               >
-                @if ( copyState()?.skillId === skill.id && copyState()?.status
-                === 'success' ) {
-                <svg
-                  class="size-4"
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="m5 12 4 4L19 6"
-                  />
-                </svg>
-                Copied } @else if ( copyState()?.skillId === skill.id &&
-                copyState()?.status === 'error' ) { Copy unavailable } @else {
-                <svg
-                  class="size-4"
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="9" y="9" width="11" height="11" rx="2" />
-                  <path
-                    stroke-linecap="round"
-                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                  />
-                </svg>
-                Copy command }
-              </button>
+                Visit tool <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         </article>
@@ -382,9 +368,9 @@
             <path stroke-linecap="round" d="m21 21-4.3-4.3M8.5 11h5" />
           </svg>
         </div>
-        <h3 class="mt-5 text-xl font-bold text-white">No skills found</h3>
+        <h3 class="mt-5 text-xl font-bold text-white">No tools found</h3>
         <p class="mt-2 text-slate-400">
-          Try another name, category, or creator.
+          Try another search, category, type, or creator.
         </p>
         <button
           class="btn btn-primary btn-sm mt-6"
@@ -407,39 +393,46 @@
             From catalog to workspace
           </p>
           <h2 id="install-title" class="mt-2 text-3xl font-bold text-white">
-            How to install an agent skill
+            How to get started
           </h2>
           <p class="mt-4 leading-relaxed text-slate-400">
-            Add focused guidance to your coding agent in three transparent
-            steps. Inspect the source whenever you need more context before
-            installation.
+            Choose a tool for your task, inspect its source, and follow the
+            setup instructions for your coding agent.
           </p>
         </div>
 
         <ol class="mt-10 grid gap-5 md:grid-cols-3">
           <li class="glass-card p-6">
-            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary">1</span>
-            <h3 class="mt-5 text-lg font-bold text-white">Choose a skill</h3>
+            <span
+              class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary"
+              >1</span
+            >
+            <h3 class="mt-5 text-lg font-bold text-white">Choose a tool</h3>
             <p class="mt-2 leading-relaxed text-slate-400">
               Compare descriptions, categories, and creators to find guidance
               that matches your task.
             </p>
           </li>
           <li class="glass-card p-6">
-            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary">2</span>
-            <h3 class="mt-5 text-lg font-bold text-white">Copy the command</h3>
+            <span
+              class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary"
+              >2</span
+            >
+            <h3 class="mt-5 text-lg font-bold text-white">Visit the source</h3>
             <p class="mt-2 leading-relaxed text-slate-400">
-              Use the copy button on the skill card to capture the exact
-              <code class="font-mono text-sm text-white">npx skills add</code>
-              command.
+              Open the tool link to review its documentation, compatibility, and
+              installation instructions.
             </p>
           </li>
           <li class="glass-card p-6">
-            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary">3</span>
+            <span
+              class="grid size-10 place-items-center rounded-xl bg-primary/10 font-bold text-primary"
+              >3</span
+            >
             <h3 class="mt-5 text-lg font-bold text-white">Review and use it</h3>
             <p class="mt-2 leading-relaxed text-slate-400">
-              Run the command from your project, then review the installed
-              instructions before applying them with your coding agent.
+              Follow the source instructions for skills, CLI tools, or MCP
+              connections. Review permissions and guidance before use.
             </p>
           </li>
         </ol>
@@ -453,10 +446,10 @@
     >
       <div class="text-center">
         <p class="text-xs font-bold tracking-[0.2em] text-primary uppercase">
-          Agent skills FAQ
+          Agent tools FAQ
         </p>
         <h2 id="faq-title" class="mt-2 text-3xl font-bold text-white">
-          Common questions about agent skills
+          Common questions about agent tools
         </h2>
       </div>
 
@@ -466,9 +459,7 @@
           <summary class="cursor-pointer font-bold text-white">
             {{ faq.question }}
           </summary>
-          <p class="mt-4 leading-relaxed text-slate-400">
-            {{ faq.answer }}
-          </p>
+          <p class="mt-4 leading-relaxed text-slate-400">{{ faq.answer }}</p>
         </details>
         }
       </div>
@@ -480,8 +471,11 @@
       class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
     >
       <p>Curated with care by Code Dimension.</p>
-      <nav class="flex flex-wrap gap-x-4 gap-y-2" aria-label="Catalog resources">
-        <a class="link-hover link" href="/skills.md">Skills in Markdown</a>
+      <nav
+        class="flex flex-wrap gap-x-4 gap-y-2"
+        aria-label="Catalog resources"
+      >
+        <a class="link-hover link" href="/skills.md">Catalog in Markdown</a>
         <a class="link-hover link" href="/llms.txt">llms.txt</a>
         <a
           class="link-hover link"
