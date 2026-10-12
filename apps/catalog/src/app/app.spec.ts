@@ -32,11 +32,11 @@ describe('App', () => {
     );
   }
 
-  it('renders 23 unique recommendations in editorial order', () => {
-    expect(CATALOG_ITEMS).toHaveLength(23);
+  it('renders 24 unique recommendations in editorial order', () => {
+    expect(CATALOG_ITEMS).toHaveLength(24);
     expect(cardIds()).toEqual(CATALOG_ITEMS.map((item) => item.id));
-    expect(new Set(cardIds()).size).toBe(23);
-    expect(root.textContent?.replace(/\s+/g, ' ')).toContain('of 23 tools');
+    expect(new Set(cardIds()).size).toBe(24);
+    expect(root.textContent?.replace(/\s+/g, ' ')).toContain('of 24 tools');
   });
 
   it('renders source links, accessible new-tab notices, creators and every badge', () => {
@@ -108,6 +108,7 @@ describe('App', () => {
         'subagent-delegation',
         'hotmart-api',
         'cloudflare-stream',
+        'layered-architecture',
       ],
     ],
   ])(
@@ -150,6 +151,7 @@ describe('App', () => {
         'subagent-delegation',
         'hotmart-api',
         'cloudflare-stream',
+        'layered-architecture',
       ],
     ],
   ])('filters %s by %s without duplicates', async (id, value, expected) => {
@@ -172,7 +174,7 @@ describe('App', () => {
 
   it('includes multi-type tools in the Skill filter', async () => {
     await setControl('type-filter', 'Skill');
-    expect(cardIds()).toHaveLength(19);
+    expect(cardIds()).toHaveLength(20);
     expect(cardIds()).toContain('context7');
     expect(cardIds()).toContain('openspec');
     expect(cardIds()).not.toContain('headroom');

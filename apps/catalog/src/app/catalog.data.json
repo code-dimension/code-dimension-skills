@@ -277,6 +277,16 @@
       "types": ["MCP"],
       "categories": ["Architecture & Development", "Code Quality & Review"],
       "url": "https://developer.chrome.com/docs/devtools/agents"
+    },
+    {
+      "id": "layered-architecture",
+      "name": "Layered Architecture",
+      "description": "Define capability-first placement, ownership, and layer boundaries in Nx workspaces, from app-local workflows to shared resources.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Architecture & Development"],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/layered-architecture"
     }
   ]
 }
