@@ -1,3 +1,6 @@
+[![skills.sh](https://skills.sh/b/code-dimension-skills/skills)](https://skills.sh/code-dimension-skills/skills)
+
+
 # Code Dimension Agent Tools
 
 Code Dimension's catalog of recommended skills, CLIs, and MCP tools for AI coding agents. This repository contains the catalog website and the reusable skills maintained by Code Dimension.
