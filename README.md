@@ -1,4 +1,4 @@
-[![skills.sh](https://skills.sh/b/code-dimension-skills/skills)](https://skills.sh/code-dimension-skills/skills)
+[![skills.sh](https://skills.sh/b/code-dimension/code-dimension-skills)](https://skills.sh/code-dimension/code-dimension-skills)
 
 
 # Code Dimension Agent Tools
