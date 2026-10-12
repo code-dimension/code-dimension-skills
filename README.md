@@ -2,7 +2,7 @@
 
 Code Dimension's catalog of recommended skills, CLIs, and MCP tools for AI coding agents. This repository contains the catalog website and the reusable skills maintained by Code Dimension.
 
-[Browse the catalog](https://agent-skills.codedimension.com.br/) to search by name, purpose, category, or creator and combine category, type, and creator filters. Third-party tools link to their own installation and usage resources.
+[Browse the catalog](https://skills.codedimension.com.br/) to search by name, purpose, category, or creator and combine category, type, and creator filters. Third-party tools link to their own installation and usage resources.
 
 ## Skills maintained here
 
@@ -35,8 +35,8 @@ Use Node.js 22.22.3+ within the 22.x release line, or another version supported 
 
 ```bash
 npm ci
-npm exec nx -- run catalog:generate-seo
-npm exec nx -- run catalog:serve
+npx nx run catalog:generate-seo
+npx nx run catalog:serve
 ```
 
 Open the local URL printed by the development server. Generate the SEO files before the first serve and rerun `catalog:generate-seo` after changing catalog data or the HTML template to refresh metadata and public text files.
@@ -45,12 +45,12 @@ Open the local URL printed by the development server. Generate the SEO files bef
 
 | Command | Purpose |
 | --- | --- |
-| `npm exec nx -- run catalog:lint` | Lint the catalog source. |
-| `npm exec nx -- run catalog:test-data` | Test catalog data validation. |
-| `npm exec nx -- run catalog:test` | Run application tests and the dependent data validation tests. |
-| `npm exec nx -- run catalog:generate-seo` | Validate catalog data and generate SEO/AEO files. |
-| `npm exec nx -- run catalog:build` | Generate SEO/AEO files and build the production website. |
-| `npm exec nx -- run catalog:serve-static` | Preview the production build locally. |
+| `npx nx run catalog:lint` | Lint the catalog source. |
+| `npx nx run catalog:test-data` | Test catalog data validation. |
+| `npx nx run catalog:test` | Run application tests and the dependent data validation tests. |
+| `npx nx run catalog:generate-seo` | Validate catalog data and generate SEO/AEO files. |
+| `npx nx run catalog:build` | Generate SEO/AEO files and build the production website. |
+| `npx nx run catalog:serve-static` | Preview the production build locally. |
 
 The production build prerenders static HTML and writes the website to `dist/apps/catalog/browser/`.
 
