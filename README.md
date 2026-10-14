@@ -3,7 +3,7 @@
 
 # Code Dimension Agent Tools
 
-Code Dimension's catalog of recommended skills, CLIs, and MCP tools for AI coding agents. This repository contains the catalog website and the reusable skills maintained by Code Dimension.
+Code Dimension's catalog of recommended skills, CLIs, MCP tools, and plugins for AI coding agents. This repository contains the catalog website and the reusable skills maintained by Code Dimension.
 
 [Browse the catalog](https://skills.codedimension.com.br/) to search by name, purpose, category, or creator and combine category, type, and creator filters. Third-party tools link to their own installation and usage resources.
 
@@ -64,7 +64,7 @@ Edit [`apps/catalog/src/app/catalog.data.json`](apps/catalog/src/app/catalog.dat
 - Keep public content in English.
 - Give each tool a unique, lowercase kebab-case `id`; preserve existing IDs because they form public anchors.
 - Include `name`, `description`, `creator`, `creatorType`, `types`, `categories`, and `url` for each entry.
-- Use `Skill`, `CLI`, and/or `MCP` as types. A tool can have multiple types and categories but appears on one card.
+- Use `Skill`, `CLI`, `MCP`, and/or `Plugin` as types. Plugins bundle resources such as skills, tools, and integrations into one installable package. A tool can have multiple types and categories but appears on one card.
 - Link every entry containing the `Skill` type to `skills.sh`. Other tools can link to their official setup or documentation pages.
 - Use `Code Dimension` as `creator` and `Organization` as `creatorType` for skills maintained here.
 

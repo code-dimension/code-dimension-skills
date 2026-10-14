@@ -4,15 +4,15 @@
     "organizationName": "Code Dimension",
     "url": "https://skills.codedimension.com.br/",
     "sourceRepository": "https://github.com/code-dimension/code-dimension-skills",
-    "title": "Agent Tools Catalog: Skills, CLIs & MCP | Code Dimension",
+    "title": "Agent Tools Catalog: Skills, CLIs, MCP & Plugins | Code Dimension",
     "language": "en",
     "locale": "en_US",
     "themeColor": "#1d232a"
   },
   "faqs": [
     {
-      "question": "What is the difference between a skill, a CLI, and MCP?",
-      "answer": "A skill provides reusable instructions for an AI agent. A CLI runs tasks in your terminal. MCP connects an agent to tools and context through a shared protocol. Some tools support more than one of these formats."
+      "question": "What is the difference between a skill, a CLI, MCP, and a plugin?",
+      "answer": "A skill provides reusable instructions for an AI agent. A CLI runs tasks in your terminal. MCP connects an agent to tools and context through a shared protocol. A plugin bundles resources such as skills, tools, and integrations into one installable package. Some tools support more than one of these formats."
     },
     {
       "question": "How do I find a tool for my objective?",
@@ -20,7 +20,7 @@
     },
     {
       "question": "How do I install or use a recommended tool?",
-      "answer": "Select Visit tool to open its source in a new tab. Follow the source documentation for installation, compatibility, and permissions. Setup differs between skills, CLIs, and MCP tools."
+      "answer": "Select Visit tool to open its source in a new tab. Follow the source documentation for installation, compatibility, and permissions. Setup differs between skills, CLIs, MCP tools, and plugins."
     },
     {
       "question": "Who creates the tools in this catalog?",
@@ -65,7 +65,6 @@
       "types": ["Skill"],
       "categories": [
         "Code Quality & Review",
-        "Context Engineering",
         "Research & Documentation"
       ],
       "url": "https://skills.sh/code-dimension/code-dimension-skills/pragmatic-git-context"
@@ -77,7 +76,7 @@
       "creator": "Code Dimension",
       "creatorType": "Organization",
       "types": ["Skill"],
-      "categories": ["Context Engineering", "Token Optimization"],
+      "categories": ["Code Quality & Review", "Token Optimization"],
       "url": "https://skills.sh/code-dimension/code-dimension-skills/subagent-delegation"
     },
     {
@@ -160,9 +159,9 @@
       "description": "Guide coding agents toward small, complete changes with practical review and verification.",
       "creator": "ponytail",
       "creatorType": "Organization",
-      "types": ["Skill"],
+      "types": ["Plugin"],
       "categories": ["Code Quality & Review"],
-      "url": "https://skills.sh/dietrichgebert/ponytail/ponytail"
+      "url": "https://ponytail.dev/"
     },
     {
       "id": "zod",
@@ -181,7 +180,7 @@
       "creator": "RTK",
       "creatorType": "Organization",
       "types": ["CLI"],
-      "categories": ["Context Engineering", "Token Optimization"],
+      "categories": ["Token Optimization"],
       "url": "https://www.rtk-ai.app/"
     },
     {
@@ -191,7 +190,7 @@
       "creator": "Headroom Labs",
       "creatorType": "Organization",
       "types": ["MCP", "CLI"],
-      "categories": ["Context Engineering", "Token Optimization"],
+      "categories": ["Token Optimization"],
       "url": "https://github.com/headroomlabs-ai/headroom"
     },
     {
@@ -200,7 +199,7 @@
       "description": "Retrieve current library documentation and code examples to ground agent work in relevant sources.",
       "creator": "Upstash",
       "creatorType": "Organization",
-      "types": ["MCP", "CLI", "Skill"],
+      "types": ["MCP"],
       "categories": [
         "Context Engineering",
         "Token Optimization",
@@ -224,7 +223,7 @@
       "description": "Define proposed changes, requirements, and implementation tasks in a spec-driven development workflow.",
       "creator": "Fission AI",
       "creatorType": "Organization",
-      "types": ["CLI", "Skill"],
+      "types": ["CLI"],
       "categories": ["Spec-Driven Development"],
       "url": "https://openspec.dev/"
     },

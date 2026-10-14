@@ -74,7 +74,9 @@ export function validateCatalog(value) {
         );
       }
     }
-    if (item.types.some((type) => !['Skill', 'CLI', 'MCP'].includes(type))) {
+    if (
+      item.types.some((type) => !['Skill', 'CLI', 'MCP', 'Plugin'].includes(type))
+    ) {
       throw new Error(`Item "${item.id}" has an invalid type.`);
     }
     const url = new URL(item.url);

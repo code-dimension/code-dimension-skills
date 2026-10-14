@@ -23,8 +23,8 @@ const { site, faqs, items } = catalog;
 const categories = uniqueSorted(items.flatMap((item) => item.categories));
 const types = uniqueSorted(items.flatMap((item) => item.types));
 const creators = uniqueSorted(items.map((item) => item.creator));
-const metaDescription = `Discover ${items.length} recommended agent tools: skills, CLIs, and MCP. Compare objectives, types, and creators. Visit each source to get started.`;
-const socialDescription = `Explore ${items.length} agent tools across ${categories.length} objectives. Find skills, CLIs, and MCP tools from ${creators.length} creators.`;
+const metaDescription = `Discover ${items.length} recommended agent tools: skills, CLIs, MCP, and plugins. Compare objectives, types, and creators. Visit sources to get started.`;
+const socialDescription = `Explore ${items.length} agent tools across ${categories.length} objectives. Find skills, CLIs, MCP tools, and plugins from ${creators.length} creators.`;
 
 if (metaDescription.length > 160) {
   throw new Error(
@@ -224,5 +224,5 @@ function catalogEntriesMarkdown(itemEntries) {
 }
 
 function generateSkillsMarkdown(siteConfig, itemEntries) {
-  return `# Agent Tools Catalog\n\n${siteConfig.organizationName} recommends skills, CLIs, and MCP tools for AI coding agents. Skills provide reusable instructions, CLIs run terminal tasks, and MCP connects agents to tools and context.\n\nCatalog entries: ${itemEntries.length}\n\nCanonical catalog: <${siteConfig.url}>\n\n${catalogEntriesMarkdown(itemEntries)}\n\n## How to get started\n\n1. Choose a tool that matches your task.\n2. Visit its source for documentation and setup instructions.\n3. Review instructions and permissions before using it with your coding agent.\n\n## Source and updates\n\nInspect the public source repository for the latest catalog and skill files: <${siteConfig.sourceRepository}>\n`;
+  return `# Agent Tools Catalog\n\n${siteConfig.organizationName} recommends skills, CLIs, MCP tools, and plugins for AI coding agents. Skills provide reusable instructions, CLIs run terminal tasks, and MCP connects agents to tools and context. Plugins bundle resources such as skills, tools, and integrations into one installable package.\n\nCatalog entries: ${itemEntries.length}\n\nCanonical catalog: <${siteConfig.url}>\n\n${catalogEntriesMarkdown(itemEntries)}\n\n## How to get started\n\n1. Choose a tool that matches your task.\n2. Visit its source for documentation and setup instructions.\n3. Review instructions and permissions before using it with your coding agent.\n\n## Source and updates\n\nInspect the public source repository for the latest catalog and skill files: <${siteConfig.sourceRepository}>\n`;
 }

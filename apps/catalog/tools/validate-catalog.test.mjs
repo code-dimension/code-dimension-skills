@@ -34,6 +34,23 @@ test('accepts the www.skills.sh domain', () => {
   validateCatalog(data);
 });
 
+test('accepts plugins linked to their official source', () => {
+  const data = structuredClone(catalog);
+  const plugin = data.items.find((item) => item.id === 'ponytail');
+  assert.deepEqual(plugin.types, ['Plugin']);
+  plugin.url = 'https://example.com/plugin';
+  validateCatalog(data);
+});
+
+test('accepts plugins with skills and preserves the skills.sh requirement', () => {
+  const data = structuredClone(catalog);
+  const plugin = data.items.find((item) => item.id === 'ponytail');
+  plugin.types = ['Plugin', 'Skill'];
+  validateCatalog(data);
+  plugin.url = 'https://example.com/plugin';
+  assert.throws(() => validateCatalog(data), /must link to skills\.sh/);
+});
+
 const invalidCases = [
   ['missing items', (data) => delete data.items],
   ['empty items', (data) => (data.items = [])],
@@ -48,7 +65,7 @@ const invalidCases = [
     (data) => (data.items[0].categories = ['Design', 'Design']),
   ],
   ['empty types', (data) => (data.items[0].types = [])],
-  ['invalid type', (data) => (data.items[0].types = ['Plugin'])],
+  ['invalid type', (data) => (data.items[0].types = ['Unknown'])],
   ['missing types', (data) => delete data.items[0].types],
   ['script URL', (data) => (data.items[0].url = 'javascript:alert(1)')],
   [

@@ -87,7 +87,7 @@ describe('App', () => {
   });
 
   it('renders educational content and the canonical FAQs', () => {
-    expect(root.textContent).toContain('Skills, CLIs, and MCP tools');
+    expect(root.textContent).toContain('Skills, CLIs, MCP tools, and plugins');
     expect(root.textContent).toContain('How to get started');
     expect(root.querySelectorAll('details')).toHaveLength(FAQS.length);
     for (const faq of FAQS) {
@@ -141,7 +141,8 @@ describe('App', () => {
       'MCP',
       ['headroom', 'context7', 'stitch-mcp', 'chrome-devtools-mcp'],
     ],
-    ['type-filter', 'CLI', ['rtk', 'headroom', 'context7', 'openspec']],
+    ['type-filter', 'CLI', ['rtk', 'headroom', 'openspec']],
+    ['type-filter', 'Plugin', ['ponytail']],
     [
       'creator-filter',
       'Code Dimension',
@@ -172,11 +173,12 @@ describe('App', () => {
     expect(cardIds()).toEqual(['chrome-devtools-mcp']);
   });
 
-  it('includes multi-type tools in the Skill filter', async () => {
+  it('keeps plugins and other formats out of the Skill filter', async () => {
     await setControl('type-filter', 'Skill');
-    expect(cardIds()).toHaveLength(20);
-    expect(cardIds()).toContain('context7');
-    expect(cardIds()).toContain('openspec');
+    expect(cardIds()).toHaveLength(17);
+    expect(cardIds()).not.toContain('ponytail');
+    expect(cardIds()).not.toContain('context7');
+    expect(cardIds()).not.toContain('openspec');
     expect(cardIds()).not.toContain('headroom');
   });
 
