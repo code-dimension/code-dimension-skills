@@ -2,7 +2,7 @@
   "site": {
     "name": "Code Dimension Agent Tools",
     "organizationName": "Code Dimension",
-    "url": "https://agent-skills.codedimension.com.br/",
+    "url": "https://skills.codedimension.com.br/",
     "sourceRepository": "https://github.com/code-dimension/code-dimension-skills",
     "title": "Agent Tools Catalog: Skills, CLIs & MCP | Code Dimension",
     "language": "en",
@@ -114,8 +114,8 @@
       "id": "tailwind-patterns",
       "name": "Tailwind Patterns",
       "description": "Tailwind CSS patterns for responsive layouts, design tokens, and reusable interface styling.",
-      "creator": "sickn33",
-      "creatorType": "Person",
+      "creator": "agentic-awesome-skills", 
+      "creatorType": "Organization",
       "types": ["Skill"],
       "categories": ["Design & UI"],
       "url": "https://skills.sh/sickn33/agentic-awesome-skills/tailwind-patterns"
@@ -124,11 +124,11 @@
       "id": "frontend-design",
       "name": "Frontend Design",
       "description": "Create distinctive frontend interfaces with deliberate typography, layout, color, and visual detail.",
-      "creator": "Anthropic",
+      "creator": "agentic-awesome-skills", 
       "creatorType": "Organization",
       "types": ["Skill"],
       "categories": ["Design & UI"],
-      "url": "https://skills.sh/anthropics/skills/frontend-design"
+      "url": "https://www.skills.sh/sickn33/agentic-awesome-skills/frontend-design"
     },
     {
       "id": "design-md",
@@ -144,8 +144,8 @@
       "id": "nestjs-best-practices",
       "name": "NestJS Best Practices",
       "description": "NestJS guidance for application architecture, dependency injection, security, testing, and performance.",
-      "creator": "Kadajett",
-      "creatorType": "Person",
+      "creator": "agent-nestjs-skills",
+      "creatorType": "Organization",
       "types": ["Skill"],
       "categories": [
         "Architecture & Development",
@@ -158,8 +158,8 @@
       "id": "ponytail",
       "name": "Ponytail",
       "description": "Guide coding agents toward small, complete changes with practical review and verification.",
-      "creator": "Dietrich Gebert",
-      "creatorType": "Person",
+      "creator": "ponytail",
+      "creatorType": "Organization",
       "types": ["Skill"],
       "categories": ["Code Quality & Review"],
       "url": "https://skills.sh/dietrichgebert/ponytail/ponytail"
@@ -182,7 +182,7 @@
       "creatorType": "Organization",
       "types": ["CLI"],
       "categories": ["Context Engineering", "Token Optimization"],
-      "url": "https://github.com/rtk-ai/rtk"
+      "url": "https://www.rtk-ai.app/"
     },
     {
       "id": "headroom",
@@ -206,7 +206,7 @@
         "Token Optimization",
         "Research & Documentation"
       ],
-      "url": "https://skills.sh/upstash/context7"
+      "url": "https://context7.com/"
     },
     {
       "id": "markdown-mermaid-writing",
@@ -226,17 +226,17 @@
       "creatorType": "Organization",
       "types": ["CLI", "Skill"],
       "categories": ["Spec-Driven Development"],
-      "url": "https://skills.sh/fission-ai/openspec"
+      "url": "https://openspec.dev/"
     },
     {
       "id": "copywriting",
       "name": "Copywriting",
-      "description": "Write and revise marketing copy with clear positioning, audience focus, and useful calls to action.",
-      "creator": "Corey Haines",
-      "creatorType": "Person",
+      "description": "Produce clear, credible, and action-oriented marketing copy that aligns with user intent and business goals.",
+      "creator": "agentic-awesome-skills",
+      "creatorType": "Organization",
       "types": ["Skill"],
       "categories": ["Content & Copywriting"],
-      "url": "https://skills.sh/coreyhaines31/marketingskills/copywriting"
+      "url": "https://www.skills.sh/sickn33/agentic-awesome-skills/copywriting"
     },
     {
       "id": "humanizer",
@@ -251,12 +251,12 @@
     {
       "id": "docker-expert",
       "name": "Docker Expert",
-      "description": "Practical Docker guidance for multi-stage builds, image optimization, security, and container workflows.",
-      "creator": "davila7",
-      "creatorType": "Person",
+      "description": "Optimize Docker images and multi-stage builds, harden container security, and plan orchestration and production deployments.",
+      "creator": "agentic-awesome-skills",
+      "creatorType": "Organization",
       "types": ["Skill"],
       "categories": ["DevOps & Infrastructure"],
-      "url": "https://skills.sh/davila7/claude-code-templates/docker-expert"
+      "url": "https://skills.sh/sickn33/agentic-awesome-skills/docker-expert"
     },
     {
       "id": "stitch-mcp",
