@@ -11,6 +11,7 @@ Code Dimension's catalog of recommended skills, CLIs, MCP tools, and plugins for
 
 | Skill | Purpose |
 | --- | --- |
+| [Angular Project Structure](https://skills.sh/code-dimension/code-dimension-skills/angular-project-structure) | Decide where Angular files belong, how features are organized, and how routes are lazy-loaded. |
 | [Cloudflare Stream](https://skills.sh/code-dimension/code-dimension-skills/cloudflare-stream) | Design and troubleshoot video uploads, playback, access control, and live streaming. |
 | [Hotmart API](https://skills.sh/code-dimension/code-dimension-skills/hotmart-api) | Work with Hotmart authentication, products, sales, subscriptions, and other API domains. |
 | [Layered Architecture](https://skills.sh/code-dimension/code-dimension-skills/layered-architecture) | Decide code placement, ownership, and capability boundaries in Nx workspaces. |

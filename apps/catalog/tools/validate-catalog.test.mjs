@@ -10,15 +10,15 @@ const catalog = JSON.parse(
   )
 );
 
-test('accepts the catalog with 24 unique tools and six local authors', () => {
+test('accepts the catalog with 25 unique tools and seven local authors', () => {
   validateCatalog(catalog);
-  assert.equal(catalog.items.length, 24);
+  assert.equal(catalog.items.length, 25);
   const local = catalog.items.filter((item) =>
     item.url.startsWith(
       'https://skills.sh/code-dimension/code-dimension-skills/'
     )
   );
-  assert.equal(local.length, 6);
+  assert.equal(local.length, 7);
   for (const item of local) {
     assert.equal(item.creator, 'Code Dimension');
     assert.equal(item.creatorType, 'Organization');

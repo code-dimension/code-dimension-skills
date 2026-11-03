@@ -32,11 +32,11 @@ describe('App', () => {
     );
   }
 
-  it('renders 24 unique recommendations in editorial order', () => {
-    expect(CATALOG_ITEMS).toHaveLength(24);
+  it('renders 25 unique recommendations in editorial order', () => {
+    expect(CATALOG_ITEMS).toHaveLength(25);
     expect(cardIds()).toEqual(CATALOG_ITEMS.map((item) => item.id));
-    expect(new Set(cardIds()).size).toBe(24);
-    expect(root.textContent?.replace(/\s+/g, ' ')).toContain('of 24 tools');
+    expect(new Set(cardIds()).size).toBe(25);
+    expect(root.textContent?.replace(/\s+/g, ' ')).toContain('of 25 tools');
   });
 
   it('renders source links, accessible new-tab notices, creators and every badge', () => {
@@ -97,7 +97,7 @@ describe('App', () => {
   });
 
   it.each([
-    ['  aNgUlAr  ', ['angular-developer']],
+    ['  aNgUlAr  ', ['angular-developer', 'angular-project-structure']],
     ['reusable project documentation', ['save-research']],
     ['Spec-Driven Development', ['save-research', 'openspec']],
     [
@@ -109,6 +109,7 @@ describe('App', () => {
         'hotmart-api',
         'cloudflare-stream',
         'layered-architecture',
+        'angular-project-structure',
       ],
     ],
   ])(
@@ -153,6 +154,7 @@ describe('App', () => {
         'hotmart-api',
         'cloudflare-stream',
         'layered-architecture',
+        'angular-project-structure',
       ],
     ],
   ])('filters %s by %s without duplicates', async (id, value, expected) => {
@@ -175,7 +177,7 @@ describe('App', () => {
 
   it('keeps plugins and other formats out of the Skill filter', async () => {
     await setControl('type-filter', 'Skill');
-    expect(cardIds()).toHaveLength(17);
+    expect(cardIds()).toHaveLength(18);
     expect(cardIds()).not.toContain('ponytail');
     expect(cardIds()).not.toContain('context7');
     expect(cardIds()).not.toContain('openspec');

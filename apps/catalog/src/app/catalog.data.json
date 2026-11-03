@@ -286,6 +286,16 @@
       "types": ["Skill"],
       "categories": ["Architecture & Development"],
       "url": "https://skills.sh/code-dimension/code-dimension-skills/layered-architecture"
+    },
+    {
+      "id": "angular-project-structure",
+      "name": "Angular Project Structure",
+      "description": "Decide where Angular components, services, guards, interceptors, and other files belong, and how feature routes are lazy-loaded.",
+      "creator": "Code Dimension",
+      "creatorType": "Organization",
+      "types": ["Skill"],
+      "categories": ["Architecture & Development"],
+      "url": "https://skills.sh/code-dimension/code-dimension-skills/angular-project-structure"
     }
   ]
 }
